@@ -29,7 +29,7 @@
  * limitations under the License.
  */
  
-package io.roberthernandez.mobile.android.sheet-music.common.logger;
+package io.roberthernandez.mobile.android.sheet_music.common.logger;
  
 import android.graphics.Typeface;
 import android.os.Bundle;

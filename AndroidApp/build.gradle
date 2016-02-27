@@ -15,7 +15,7 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "23.0.2"
     compileSdkVersion 21
 
     defaultConfig {

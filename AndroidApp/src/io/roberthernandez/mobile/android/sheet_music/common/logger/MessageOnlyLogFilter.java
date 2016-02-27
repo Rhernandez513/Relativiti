@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.roberthernandez.mobile.android.sheet-music.common.logger;
+package io.roberthernandez.mobile.android.sheet_music.common.logger;
 
 /**
  * Simple {@link LogNode} filter, removes everything except the message. Useful

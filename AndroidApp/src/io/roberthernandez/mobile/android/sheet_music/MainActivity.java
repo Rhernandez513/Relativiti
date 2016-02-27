@@ -1,4 +1,4 @@
-package io.roberthernandez.mobile.android.sheet-music;
+package io.roberthernandez.mobile.android.sheet_music;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,12 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import io.roberthernandez.mobile.android.sheet-music.common.logger.Log;
-import io.roberthernandez.mobile.android.sheet-music.common.logger.LogWrapper;
+import io.roberthernandez.mobile.android.sheet_music.common.logger.Log;
+import io.roberthernandez.mobile.android.sheet_music.common.logger.LogWrapper;
 
 public class MainActivity extends Activity {
 
-    public static final String TAG = ""sheet music"";
+    public static final String TAG = "sheet music";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

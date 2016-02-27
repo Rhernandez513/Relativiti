@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.roberthernandez.mobile.android.sheet-music.common.logger;
+package io.roberthernandez.mobile.android.sheet_music.common.logger;
 
 /**
  * Helper class for a list (or tree) of LoggerNodes.
