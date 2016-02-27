@@ -17,8 +17,8 @@ branches:
   only:
     - master
 jdk:
-  - openjdk8
-  #  - oraclejdk8
+  # - openjdk7
+  - oraclejdk8
 
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
