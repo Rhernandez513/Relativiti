@@ -1,6 +1,9 @@
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+notifications:
+  slack:
+    secure: JWW9DbHBm1En2PGLE4oYUlB6ALWg7nVtpCFxjILERk6qP9hJB/pOaZUx1rVKO80va/eVuPapsVNq3Ds8wrtkVJnEnSKR0xWtuvs7B0mthwi6FJxkCA56giixaNabf/AKcqQZD4WzV5carTOaq1+KsV4s1huQvYxAvIgNpbDyKFrOdoT2WF+2UxMPTCxPP9HEOJCHhbR5Y7ZnYMoozRf6VfUzzlg1bU0W11fli87LwbUbLiW+mDgKN2AgoJ+Lvv8qKkVzCng2hl8g83O1OrcIXjr4s85NloEAvrX2JcW8ngfiDxE0VlU77ud/oR4aC3rfBXFB6rl/+fXkXEJ/sgmI9LkyI1OUotghm/kCJQ71EPDgqDmcxQwFqlXRs8PPRHd2XcnqZOy8/+QL++c3YadbN1Ihbf1Ij3vCX3q9+HjEeMKs1+Aq2nVq3pGpQb7Hdlaeo2u8Q8b773tFyOYzQgLgF4EgIiiUVEQEauTEwau9aqF5f6i4BH6GawUaBYil/B4dZb2k8JoVSEZN+iX0lLw9GVcnTZXR0h/9GfTMEAQ7dTa+dSEH5n2q/E4qhUjokeYr052qp2WAm+uS4lnxbEVHd4Hs/K+qm7LXufwwILTDDwGKjUiZXFBzeJKWSUOPM783GflnISEGpHsl3WoopMUfDNzufXlwEmr89MswYFdDMBY=
