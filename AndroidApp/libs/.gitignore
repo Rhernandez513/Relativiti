@@ -1,2 +1,0 @@
-# Avoid ignoring dependency jar file (.jar files are usually ignored)
-!*.jar
