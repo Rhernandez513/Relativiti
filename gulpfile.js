@@ -359,12 +359,12 @@ gulp.task('default', function(cb) {
 });
 
 // Build then deploy to GitHub pages gh-pages branch
-gulp.task('build-deploy-gh-pages', function(cb) {
-  runSequence(
-    'build',
-    'deploy-gh-pages',
-    cb);
-});
+// gulp.task('build-deploy-gh-pages', function(cb) {
+//   runSequence(
+//     'build',
+//     'deploy-gh-pages',
+//     cb);
+// });
 
 // Deploy to GitHub pages gh-pages branch
 gulp.task('deploy-gh-pages', function() {
