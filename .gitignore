@@ -4,7 +4,7 @@
 
 # npm & bower
 node_modules
-bower_components
+# bower_components
 
 # cordova
 /platforms/
@@ -85,7 +85,7 @@ jspm_packages
 
 ### Yeoman ###
 node_modules/
-bower_components/
+# bower_components/
 *.log
 
 build/
@@ -93,7 +93,7 @@ dist/
 
 
 ### Bower ###
-bower_components
+# bower_components
 .bower-cache
 .bower-registry
 .bower-tmp
