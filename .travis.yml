@@ -16,8 +16,14 @@ before_script:
   - 'export DISPLAY=:99.0'
   - sh -e /etc/init.d/xvfb start
   - sleep 3
-  - npm i -g bower gulp cordova
+  - npm i -g bower
+  - npm i -g gulp
+  - npm i -g cordova
+  - npm i
   - bower i
+  - cordova platform add android
+  - cordova plugin add cordova-plugin-media
+  - cordova build
 script:
   - ./travis-runner.sh
 notifications:
