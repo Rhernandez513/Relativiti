@@ -9,6 +9,8 @@ then
   sed -i.tmp "s/\/\/ app.baseUrl = '\/your-pathname/app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp && \
   bower i && \
+  gulp --cordova 'platform add android' && \
+  gulp --cordova 'plugin add cordova-plugin-media' && \
   gulp --cordova 'build' && \
   gulp deploy-gh-pages && \
   sed -i.tmp "s/app.baseUrl = '\/your-pathname/\/\/ app.baseUrl = '\/your-pathname /" app/scripts/app.js && \
