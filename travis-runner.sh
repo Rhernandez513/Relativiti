@@ -5,6 +5,9 @@
 # Should run only on dev environments  && TravisCI
 #
 
+# Env should be built
+# This is Deploy Script
+
 set -o pipefail
 
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
@@ -18,7 +21,7 @@ then
   touch ~/.git-credentials && \
   echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
 
-# Have built back-end worker
+# Having built back-end worker, build and deploy app
   echo "Deploying!" && \
   sed -i.tmp "s/\/\/ app.baseUrl = '\/your-pathname/app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp && \
