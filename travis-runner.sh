@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Used to build TravisCI Versions of Apps && GitHub Pages version
+#
+
 set -o pipefail
 
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
@@ -12,10 +16,11 @@ then
   gulp deploy-gh-pages && \
   sed -i.tmp "s/app.baseUrl = '\/your-pathname/\/\/ app.baseUrl = '\/your-pathname /" app/scripts/app.js && \
   rm app/scripts/app.js.tmp
-  # gulp --cordova 'platform add android' && \
-  # gulp --cordova 'plugin add cordova-plugin-media' && \
-  # gulp --cordova 'build'
 else
   npm run lint
   npm test
 fi
+
+source build.sh
+
+# EOF
