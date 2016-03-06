@@ -25,7 +25,6 @@ before_script:
   - npm i -g bower
   - npm i -g gulp
   - npm i -g cordova
-  - bower i
 script:
   - ./build.sh
   - ./travis-runner.sh
