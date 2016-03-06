@@ -35,8 +35,8 @@
     "path": "^0.11.14",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.0.2",
-    "vulcanize": ">= 1.4.2",
     "vinyl-paths": "^2.0.0",
+    "vulcanize": ">= 1.4.2",
     "web-component-tester": "^3.4.0",
     "xml2js": "^0.4.9"
   },
