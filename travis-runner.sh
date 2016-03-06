@@ -3,6 +3,8 @@
 # Used to build TravisCI Versions of Apps && GitHub Pages version
 #
 
+source build.sh
+
 set -o pipefail
 
 if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
@@ -20,7 +22,5 @@ else
   npm run lint
   npm test
 fi
-
-source build.sh
 
 # EOF
