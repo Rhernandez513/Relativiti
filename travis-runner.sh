@@ -14,8 +14,9 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
 then
 
 # Info that shows up on Github
-  # git config --global user.email "$GH_USER" && \
-  # git config --global user.name "auto deployer"
+echo "Github user is: $GH_USER"
+  git config --global user.email "$GH_USER" && \
+  git config --global user.name "auto deployer"
 
 # Attempt to use TravisCI Env Variables to set git credentials
   # touch ~/.git-credentials && \
