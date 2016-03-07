@@ -367,10 +367,10 @@ gulp.task('default', function(cb) {
 // });
 
 // Deploy to GitHub pages gh-pages branch
-gulp.task('deploy-gh-pages', function() {
-  return gulp.src(dist('**/*'))
-    .pipe($.ghPages());
-});
+// gulp.task('deploy-gh-pages', function() {
+//   return gulp.src(dist('**/*'))
+//     .pipe($.ghPages());
+// });
 
 // Load tasks for web-component-tester
 // Adds tasks for `gulp test:local` and `gulp test:remote`
