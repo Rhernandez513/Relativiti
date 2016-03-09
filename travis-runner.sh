@@ -28,7 +28,7 @@ echo "Github user is: $GH_USER"
   rm app/scripts/app.js.tmp && \
   bower i && \
   gulp deploy-gh-pages && \
-  sed -i.tmp "s/app.baseUrl = '\/Sheet-Music-App/\/\/ app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
+  sed -i.tmp "s/app.baseUrl = '\/Sheet-Music-App/\/\/app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp
 else
   npm run lint

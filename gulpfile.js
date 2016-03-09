@@ -25,7 +25,7 @@ var packageJson = require('./package.json');
 var crypto = require('crypto');
 var minimist = require('minimist');
 var requireDir = require('require-dir');
-var ghPages = require('gulp-gh-pages');
+// var ghPages = require('gulp-gh-pages');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
