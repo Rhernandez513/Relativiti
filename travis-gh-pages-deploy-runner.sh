@@ -7,13 +7,15 @@
 
 # Env should be built
 # This is Deploy Script
+. ./build.sh
 
 set -o pipefail
 
-if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
-then
+# if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
+# then
 
 # Info that shows up on Github
+GH_USER="rhernandez513@gmail.com"
 echo "Github user is: $GH_USER"
   git config --global user.email "$GH_USER" && \
   git config --global user.name "auto deployer"
@@ -26,13 +28,13 @@ echo "Github user is: $GH_USER"
   echo "Deploying!" && \
   sed -i.tmp "s/\/\/app.baseUrl = '\/your-pathname/app.baseUrl = '\/Sheet-Music-App/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp && \
-  bower i && \
+  bower i  && \
   gulp deploy-gh-pages && \
   sed -i.tmp "s/app.baseUrl = '\/Sheet-Music-App/\/\/app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp
-else
-  npm run lint
-  npm test
-fi
+# else
+  # npm run lint
+  # npm test
+# fi
 
 # EOF
