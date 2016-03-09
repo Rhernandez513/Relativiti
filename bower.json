@@ -16,7 +16,7 @@
   "ignore": [],
   "resolutions": {
     "paper-menu": "4fecb43601",
-    "polymer": "^1.2.4",
+    "polymer": "^1.2.0",
     "webcomponentsjs": "^0.7.20"
   }
 }
