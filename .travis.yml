@@ -25,7 +25,7 @@ before_script:
 - npm i -g bower
 - npm i -g gulp
 # May be able to wrap these, depending on ENV
-# - "./dev-end-setup.sh"
+# - "./env-setup.sh"
 
   # Read this wasn't needed
 # - npm i -g cordova
