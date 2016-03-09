@@ -16,30 +16,23 @@ addons:
     - google-chrome-stable
 node_js:
 - '4.1'
-before_script:
+before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - sleep 3
+install:
 - npm install npm@latest -g
 - npm update -g
 - npm i -g bower
 - npm i -g gulp
-# May be able to wrap these, depending on ENV
-# - "./env-setup.sh"
 
-  # Read this wasn't needed
+# before_script:
+# Read this wasn't needed
 # - npm i -g cordova
 
-script:
-- "./build.sh"
-- "./travis-gh-pages-deploy-runner.sh"
-env:
-  global:
-  - GH_REF: github.com/rhernandez513/Sheet-Music-App.git
-  - secure: SbcQ7plU7aRGQlaAG2ffMhSvEs84073YSljOQ62DZAjRxgizMhF4xM7H2mPrmac9YRM4IBrQRvBKMMZy3L6OhN8gwpm8o+w2zV+5Q1fwpY9V8bilznnhp1JUY6jrB2l7aLTOFxt/cG+5ABxiupwWz/n+I7BaByYhBiHWntIBgDc528eecRNDYI5R36KWjLO/yr+SdElvyxDlDOdJGaluPvgMItbinFGcE1hYb/Jqrkkw8zpE6CTDmvMOq1aRBWSo9afgh2zDeKc02lTYP/4N0xcn8CqzHF7k5zGWHjN9DR8Ep8Bp1ff/sM7zHGZBqgVhn5WGv305jBQY6eOxiTp5cDP0WVIOjgJeM5rBu9hBQxhZSaMKBPr2B1NYUjIwTVQkBsnR4sr095Ugjg8JCZAmEevf/Ysl4CzQyW3gT+WcEluqjxUuicQWDclH6L/kOVPBJ+Eqdo/LY3G1tpLcc6fsvj4FlVO6LPTrbMyCagwQvnjX3uIdFyuthqtWWrHKQMGx2Ow9suNUi8Hyvk7WboS1Z6jrLIcs1rvXSX8rQmlMR5vJBK3Ejg6fS1OHxn/lrtLhj4lDLB9r/Fcu2PEHT1lcvQqsTa3W+t4Fk1qaShUlBDiwMbZWZgmlf1SdG5OzK1yrPLjTTdRFdqJGgb6TANCdetgczRWynvjIhr5IDMxvfJg=
-notifications:
-  slack:
-    secure: JWW9DbHBm1En2PGLE4oYUlB6ALWg7nVtpCFxjILERk6qP9hJB/pOaZUx1rVKO80va/eVuPapsVNq3Ds8wrtkVJnEnSKR0xWtuvs7B0mthwi6FJxkCA56giixaNabf/AKcqQZD4WzV5carTOaq1+KsV4s1huQvYxAvIgNpbDyKFrOdoT2WF+2UxMPTCxPP9HEOJCHhbR5Y7ZnYMoozRf6VfUzzlg1bU0W11fli87LwbUbLiW+mDgKN2AgoJ+Lvv8qKkVzCng2hl8g83O1OrcIXjr4s85NloEAvrX2JcW8ngfiDxE0VlU77ud/oR4aC3rfBXFB6rl/+fXkXEJ/sgmI9LkyI1OUotghm/kCJQ71EPDgqDmcxQwFqlXRs8PPRHd2XcnqZOy8/+QL++c3YadbN1Ihbf1Ij3vCX3q9+HjEeMKs1+Aq2nVq3pGpQb7Hdlaeo2u8Q8b773tFyOYzQgLgF4EgIiiUVEQEauTEwau9aqF5f6i4BH6GawUaBYil/B4dZb2k8JoVSEZN+iX0lLw9GVcnTZXR0h/9GfTMEAQ7dTa+dSEH5n2q/E4qhUjokeYr052qp2WAm+uS4lnxbEVHd4Hs/K+qm7LXufwwILTDDwGKjUiZXFBzeJKWSUOPM783GflnISEGpHsl3WoopMUfDNzufXlwEmr89MswYFdDMBY=
+script: sudo sh - `./build.sh`
+after_success: ./travis-gh-pages-deploy-runner.sh
+
 deploy:
   provider: heroku
   app: Sheet-Music-App
@@ -48,3 +41,10 @@ deploy:
     repo: Rhernandez513/Sheet-Music-App
   api_key:
     secure: NJfb4r0VHlhR0QaKzqifJqPkbG8ylwZTQ3jUS8d4C52IbFhVtmp5NvV3RDXA/pcNMYqKUOFt9GWj7oN3i0lN6X2YJbPGaTSS+1qwJwtXozzE0C7+B/yDi/dLBe/oKitEHKdqj2EUZPhBHBbF76tABh5KHoxZwmgURcE/tSicsBp2FXf7YQhKCQJ8mkvXSFwWHQUAKPoR0qGlcsKKBGzTiVR3egbVslyjgVKeyXZtfP0lQoZmxYZHW59nKGWRVtB8Her2zhsDLKCoelb1A4aiwuj7tTXLmw+MlTpqGP9eFRQEypQv4ckO+JsgU58sd4LAT16VFaUoZoAkW/1tydE49ctNSug8KwDLHltknPUumCEBBYTLd+iUG2xxj0g6uF87ZEigecz20uN0oUoD9Q2BNHFai4N6uVmOZR8VzjlhpmkrEPl1IhO0aboVzxL2kAbwPRUk0jq0YSQsP6fdwaouODIgYdzLShFgtR5/Crrutbbb6KaafIErWtiHugagXes0lYCHb/GPUfr8Fe7MLrxtZtKjXHW5GQqw6FwmEGgCf1009+mgRlFJUObIFZ9nwcdDwnXQjUtMN+WZediXaXyvdHF2+Il11ICbtOsjIEdGKBgM3m5SFRYL4iXcVpaEsXliboHGe2V9Ky9MGt78qVwu9ScZV5zxayZUsYN1K7+MMvI=
+env:
+  global:
+  - GH_REF: github.com/rhernandez513/Sheet-Music-App.git
+  - secure: SbcQ7plU7aRGQlaAG2ffMhSvEs84073YSljOQ62DZAjRxgizMhF4xM7H2mPrmac9YRM4IBrQRvBKMMZy3L6OhN8gwpm8o+w2zV+5Q1fwpY9V8bilznnhp1JUY6jrB2l7aLTOFxt/cG+5ABxiupwWz/n+I7BaByYhBiHWntIBgDc528eecRNDYI5R36KWjLO/yr+SdElvyxDlDOdJGaluPvgMItbinFGcE1hYb/Jqrkkw8zpE6CTDmvMOq1aRBWSo9afgh2zDeKc02lTYP/4N0xcn8CqzHF7k5zGWHjN9DR8Ep8Bp1ff/sM7zHGZBqgVhn5WGv305jBQY6eOxiTp5cDP0WVIOjgJeM5rBu9hBQxhZSaMKBPr2B1NYUjIwTVQkBsnR4sr095Ugjg8JCZAmEevf/Ysl4CzQyW3gT+WcEluqjxUuicQWDclH6L/kOVPBJ+Eqdo/LY3G1tpLcc6fsvj4FlVO6LPTrbMyCagwQvnjX3uIdFyuthqtWWrHKQMGx2Ow9suNUi8Hyvk7WboS1Z6jrLIcs1rvXSX8rQmlMR5vJBK3Ejg6fS1OHxn/lrtLhj4lDLB9r/Fcu2PEHT1lcvQqsTa3W+t4Fk1qaShUlBDiwMbZWZgmlf1SdG5OzK1yrPLjTTdRFdqJGgb6TANCdetgczRWynvjIhr5IDMxvfJg=
+notifications:
+  slack:
+    secure: JWW9DbHBm1En2PGLE4oYUlB6ALWg7nVtpCFxjILERk6qP9hJB/pOaZUx1rVKO80va/eVuPapsVNq3Ds8wrtkVJnEnSKR0xWtuvs7B0mthwi6FJxkCA56giixaNabf/AKcqQZD4WzV5carTOaq1+KsV4s1huQvYxAvIgNpbDyKFrOdoT2WF+2UxMPTCxPP9HEOJCHhbR5Y7ZnYMoozRf6VfUzzlg1bU0W11fli87LwbUbLiW+mDgKN2AgoJ+Lvv8qKkVzCng2hl8g83O1OrcIXjr4s85NloEAvrX2JcW8ngfiDxE0VlU77ud/oR4aC3rfBXFB6rl/+fXkXEJ/sgmI9LkyI1OUotghm/kCJQ71EPDgqDmcxQwFqlXRs8PPRHd2XcnqZOy8/+QL++c3YadbN1Ihbf1Ij3vCX3q9+HjEeMKs1+Aq2nVq3pGpQb7Hdlaeo2u8Q8b773tFyOYzQgLgF4EgIiiUVEQEauTEwau9aqF5f6i4BH6GawUaBYil/B4dZb2k8JoVSEZN+iX0lLw9GVcnTZXR0h/9GfTMEAQ7dTa+dSEH5n2q/E4qhUjokeYr052qp2WAm+uS4lnxbEVHd4Hs/K+qm7LXufwwILTDDwGKjUiZXFBzeJKWSUOPM783GflnISEGpHsl3WoopMUfDNzufXlwEmr89MswYFdDMBY=
