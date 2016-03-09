@@ -1,11 +1,11 @@
 #!/bin/sh
 
 # "Server side" gulp & bower
-npm install -g gulp bower && \
+# npm install -g gulp bower && \
 # "App Backend" modules
 npm install && \
 # "App Backend" frontend modules
-bower install
+# bower install
 
 # Install "Client side" gulp shell
 npm i gulp
