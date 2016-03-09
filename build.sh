@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source env_setup.sh
+
 # Install "Client side" gulp shell
 npm i gulp
 # Install "Client side bower"
