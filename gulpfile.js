@@ -25,7 +25,7 @@ var packageJson = require('./package.json');
 var crypto = require('crypto');
 var minimist = require('minimist');
 var requireDir = require('require-dir');
-var ghPages = require('gulp-gh-pages');
+// var ghPages = require('gulp-gh-pages');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -335,7 +335,6 @@ requireDir('./gulp');
 // default task
 gulp.task('default', function() {
   options.build = true;
-  return gulp.start('');
 });
 
 /* End Cordova setting and tasks */
