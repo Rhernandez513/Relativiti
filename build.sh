@@ -3,7 +3,8 @@
 # Install "Client side" gulp shell
 npm i gulp
 # Install "Client side bower"
-npm i bower
+# npm i bower
+bower install
 
 # "Client side" gulp used to build Android APKs via cordova
 gulp --cordova 'build'
