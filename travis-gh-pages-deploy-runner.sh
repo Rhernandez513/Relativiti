@@ -21,8 +21,8 @@ echo "Github user is: $GH_USER"
   git config --global user.name "auto deployer"
 
 # Attempt to use TravisCI Env Variables to set git credentials
-  touch ~/.git-credentials && \
-  echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
+  touch .git-credentials && \
+  echo "https://$GH_USER:$GH_PASS@github.com" > .git-credentials
 
 # Having built back-end worker, build and deploy frontend to github
   echo "Deploying!" && \
