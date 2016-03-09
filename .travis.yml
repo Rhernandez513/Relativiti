@@ -24,7 +24,12 @@ before_script:
 - npm update -g
 - npm i -g bower
 - npm i -g gulp
-- npm i -g cordova
+# May be able to wrap these, depending on ENV
+# - "./dev-end-setup.sh"
+
+  # Read this wasn't needed
+# - npm i -g cordova
+
 script:
 - "./build.sh"
 - "./travis-runner.sh"
