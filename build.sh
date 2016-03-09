@@ -1,6 +1,11 @@
 #!/bin/sh
 
-. env_setup.sh
+# "Server side" gulp & bower
+npm install -g gulp bower && \
+# "App Backend" modules
+npm install && \
+# "App Backend" frontend modules
+bower install
 
 # Install "Client side" gulp shell
 npm i gulp
@@ -11,6 +16,8 @@ bower install
 # "Client side" gulp used to build Android APKs via cordova
 gulp --cordova 'build'
 
-gulp deploy-gh-pages
+# This is in travis runner so I suspect this one is a duplicate
+
+# gulp deploy-gh-pages
 
 #EOF
