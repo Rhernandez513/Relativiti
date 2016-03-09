@@ -31,8 +31,9 @@ before_script:
 # - npm i -g cordova
 
 script:
+- "./env_setup.sh"
 - "./build.sh"
-- "./travis-runner.sh"
+- "./travis-gh-pages-deploy-runner.sh"
 env:
   global:
   - GH_REF: github.com/rhernandez513/Sheet-Music-App.git
