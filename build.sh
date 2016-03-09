@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source env_setup.sh
+. env_setup.sh
 
 # Install "Client side" gulp shell
 npm i gulp

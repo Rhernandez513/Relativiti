@@ -31,7 +31,6 @@ before_script:
 # - npm i -g cordova
 
 script:
-- "./env_setup.sh"
 - "./build.sh"
 - "./travis-gh-pages-deploy-runner.sh"
 env:
