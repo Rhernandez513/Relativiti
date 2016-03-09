@@ -7,7 +7,7 @@
 
 # Env should be built
 # This is Deploy Script
-. ./build.sh
+# . ./build.sh
 
 set -o pipefail
 
