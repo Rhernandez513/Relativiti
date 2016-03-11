@@ -56,6 +56,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
+  
+  <!-- Load in recorder.js -->
+  <script src="scripts\recorder.js"></script>
 
 </head>
 
@@ -132,6 +135,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <p class="paper-font-body2">This is another card.</p>
               </paper-material>
 
+			  <!-- Testing purposes -->
+			<h1>Hello World!</h1>
+			<input onclick="startRecording()" type="button" value="start recording" />
+			<input onclick="stopRecording()" type="button" value="stop recording and play" />
+			  
               <paper-material elevation="1" class="paper-font-body2">
                 <h1 id="license">License</h1>
                 <p>Everything in this repo is BSD style license unless otherwise specified.</p>
@@ -209,6 +217,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
   <!-- endbuild-->
+  
+  <!-- Recording Functionality-->
+	<script>
+	<!-- Defining starting vars -- >
+	var rec;
+	var audio = document.querySelector('audio');
+	
+	window.URL = window.URL || window.webkitURL;
+	<!-- mozGetUserMedia deprecated but automatically switches -->
+  navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+	
+	function startRecording() {
+	if (navigator.getUserMedia) {
+	  navigator.getUserMedia({audio: true}, onSuccess, onFail);
+	} else {
+	  console.log('navigator.getUserMedia not present');
+	}
+  }
+
+  function stopRecording() {
+	rec.stop();
+	console.log("Recording Stopped!");
+	/* Throws audio is null error
+	*  Can be modified when we figure out where to send recorded file.
+	*  and figure out file type to use.
+	rec.exportWAV(function(s) {
+	  audio.src = window.URL.createObjectURL(s);
+	});		
+	*/
+  }
+	<!-- If user denies access to microphone -->
+	  var onFail = function(e) {
+	console.log('Access Denied!', e);
+  };
+
+  <!-- If user allows access to microphone -- >
+  var onSuccess = function(s) {
+	console.log("onSuccess");
+	 var context = new AudioContext();
+        var mediaStreamSource = context.createMediaStreamSource(s);
+        rec = new Recorder(mediaStreamSource);
+		<!-- Recording Begins -- >
+        rec.record();
+		console.log("recording started");
+
+        <!-- Comment/Uncomment to allow real-time playback for users -- >
+         mediaStreamSource.connect(context.destination);
+  }
+	</script>
 </body>
 
 </html>
