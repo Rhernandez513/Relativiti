@@ -1,32 +1,41 @@
 #!/bin/sh
 
 # "Server side" gulp & bower
-# npm install -g gulp bower && \
-# "App Backend" modules
-# npm install && \
-# "App Backend" frontend modules
-# bower install
-
-# Install "Client side" gulp shell
-npm i gulp
+npm install -g gulp bower && \
+# "App Backend" backend-modules
+## Install "Client side" modules
+npm install && \
+# "App Backend" frontend-modules
 # # Install "Client side bower"
-npm i bower
 bower install --allow-root
 
-# "Client side" gulp used to build Android APKs via cordova
+# "Client side" build Android APKs via cordova
 ## Android SDK Location so Cordova can see it
-ANDROID_HOME=$ANDROID_HOME
-PATH=$PATH:$ANDROID_HOME
-# export $PATH
-# export $ANDROID_HOME
 
+export ANDROID_HOME=$ANDROID_HOME
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platforms-tools
+
+GH_USER=""
+GH_PASS=""
+
+# Git Credentials
+touch ~/.git-credentials && \
+echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
+
+# Running this in dev sets owner to sudo
+# Should be a developer sanity test
+# Should not be needed in prod
+chown -R $(whoami):$GROUP .
+
+gulp
 gulp --cordova 'platform add android'
 gulp --cordova 'plugin add cordova-plugin-media'
-chown -R $USER:$GROUP .
 gulp --cordova 'build'
 
-# This is in travis runner so I suspect this one is a duplicate
+gulp deploy-gh-pages
 
-# gulp deploy-gh-pages
+# Cleanup
+rm ~/.git-credentials
 
 #EOF
+

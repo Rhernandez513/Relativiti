@@ -335,6 +335,8 @@ requireDir('./gulp');
 // default task
 gulp.task('default', function() {
   options.build = true;
+  options.env.path = '$PATH';
+  options.env.androidHOME = '$ANDROID_HOME';
 });
 
 /* End Cordova setting and tasks */
