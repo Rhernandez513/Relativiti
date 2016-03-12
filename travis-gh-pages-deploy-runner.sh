@@ -22,7 +22,7 @@ then
 
   echo "Github deploy bot name is: $GH_DEPLOY_BOT_NAME"
   git config --global user.email "$GH_EMAIL" && \
-  git config --global user.name "$GH_DEPLY_BOT_NAME"
+  git config --global user.name "$GH_DEPLOY_BOT_NAME"
 
 # Attempt to use TravisCI Env Variables to set git credentials
   touch ./.git-credentials && \
@@ -33,16 +33,16 @@ then
   echo "Deploying!" && \
   sed -i.tmp "s/\/\/app.baseUrl = '\/your-pathname/app.baseUrl = '\/Sheet-Music-App/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp && \
-  # bower i  && \
+  bower i  && \
   gulp deploy-gh-pages && \
   sed -i.tmp "s/app.baseUrl = '\/Sheet-Music-App/\/\/app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp
 
 # Make sure to reset env var
   git config --global user.name "$SYS_GH_USER_NAME"
-# else
-  # npm run lint
-  # npm test
+else
+  npm run lint
+  npm test
 fi
 
 # EOF

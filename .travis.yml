@@ -20,11 +20,6 @@ before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - sleep 3
-install:
-- npm install npm@latest -g
-- npm update -g
-- npm i -g bower
-- npm i -g gulp
 script: sudo sh - `./build.sh`
 after_success: "./travis-gh-pages-deploy-runner.sh"
 deploy:

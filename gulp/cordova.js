@@ -15,7 +15,6 @@ var runCordova = function (command, stream) {
   command = typeof command === 'string' ? command : options.cordova;
   // create new stream if not provided
   stream = stream || gulp.src('');
-## Seperate via more abstraction
   // needs explicit cross-platform path
   return stream = function() {
     $.shell(['export ANDROID_HOME= ' + options.env.androidHome + ' && export PATH=' + options.env.path]);
