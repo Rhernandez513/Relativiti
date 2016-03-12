@@ -1,5 +1,6 @@
 #!/bin/sh
 
+npm update
 # "Server side" gulp & bower
 npm install -g gulp bower && \
 # "App Backend" backend-modules
@@ -15,8 +16,8 @@ bower install --allow-root
 export ANDROID_HOME=$ANDROID_HOME
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platforms-tools
 
-GH_USER=""
-GH_PASS=""
+GH_USER="$GH_USER"
+GH_PASS="$GH_PASSWORD"
 
 # Git Credentials
 touch ~/.git-credentials && \
@@ -25,7 +26,7 @@ echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
 # Running this in dev sets owner to sudo
 # Should be a developer sanity test
 # Should not be needed in prod
-chown -R $(whoami):$GROUP .
+# sudo chown -R $(whoami):$GROUP .
 
 gulp
 gulp --cordova 'platform add android'

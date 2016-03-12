@@ -15,12 +15,12 @@ var runCordova = function (command, stream) {
   command = typeof command === 'string' ? command : options.cordova;
   // create new stream if not provided
   stream = stream || gulp.src('');
-###### SEPERATE BOTTOM FROM TOP VIA MORE ABSTRACTION
-
-  return stream
-      // needs explicit cross-platform path
-    pipe($.shell(['export ANDROID_HOME= ' + options.env.androidHome + ' && export PATH=' + options.env.path ] +
-    pipe($.shell([path.join('node_modules/cordova/bin/cordova ') + command ])
+## Seperate via more abstraction
+  // needs explicit cross-platform path
+  return stream = function() {
+    $.shell(['export ANDROID_HOME= ' + options.env.androidHome + ' && export PATH=' + options.env.path]);
+    $.shell([path.join('node_modules/cordova/bin/cordova ') + command]);
+  };
 };
 
 gulp.task('cordova', runCordova);

@@ -25,10 +25,9 @@ then
   git config --global user.name "$GH_DEPLY_BOT_NAME"
 
 # Attempt to use TravisCI Env Variables to set git credentials
-  touch .git-credentials && \
-  echo "https://$GH_USER:$GH_PASS@github.com" > .git-credentials
+  touch ./.git-credentials && \
+  echo "https://$GH_USER:$GH_PASS@github.com" > ./.git-credentials
   git config --global credential.helper 'cache --timeout=300'
-  # git config credential.helper 'cache --timeout=300'
 
 # Having built back-end worker, build and deploy frontend to github
   echo "Deploying!" && \
