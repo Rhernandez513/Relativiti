@@ -59,6 +59,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
   <!-- Load in recorder.js -->
   <script src="scripts\recorder.js"></script>
+  
+  <style type='text/css'>
+    ul { list-style: none; }
+    #recordingslist audio { display: block; margin-bottom: 10px; }
+  </style>
 
 </head>
 
@@ -136,9 +141,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </paper-material>
 
 			  <!-- Testing purposes -->
-			<h1>Hello World!</h1>
-			<input onclick="startRecording()" type="button" value="start recording" />
-			<input onclick="stopRecording()" type="button" value="stop recording and play" />
+				<h1>Hello World!</h1>
+				<input onclick="startRecording(this)" type="button" value="start recording" />
+				<input onclick="stopRecording(this)" type="button" disabled value="stop recording and save" />
+				<h2>Recordings</h2>
+				<ul id="recordingslist"></ul>
 			  
               <paper-material elevation="1" class="paper-font-body2">
                 <h1 id="license">License</h1>
@@ -214,11 +221,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   </template>
 
-  <!-- build:js scripts/app.js -->
-  <script src="scripts/app.js"></script>
-  <!-- endbuild-->
-  
-  <!-- Recording Functionality-->
+ <!-- Recording Functionality-->
 	<script>
 	<!-- Defining starting vars -- >
 	var rec;
@@ -228,24 +231,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<!-- mozGetUserMedia deprecated but automatically switches -->
   navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 	
-	function startRecording() {
+	function startRecording(button) {
 	if (navigator.getUserMedia) {
 	  navigator.getUserMedia({audio: true}, onSuccess, onFail);
+	  button.disabled = true;
+	  button.nextElementSibling.disabled = false;
 	} else {
 	  console.log('navigator.getUserMedia not present');
 	}
   }
 
-  function stopRecording() {
+  function stopRecording(button) {
 	rec.stop();
+	button.disabled = true;
+	button.previousElementSibling.disabled = false;
 	console.log("Recording Stopped!");
-	/* Throws audio is null error
-	*  Can be modified when we figure out where to send recorded file.
-	*  and figure out file type to use.
-	rec.exportWAV(function(s) {
-	  audio.src = window.URL.createObjectURL(s);
-	});		
-	*/
+	rec.exportWAV(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var li = document.createElement('li');
+      var au = document.createElement('audio');
+      var hf = document.createElement('a');
+      
+      au.controls = true;
+      au.src = url;
+      hf.href = url;
+      hf.download = new Date().toISOString() + '.wav';
+      hf.innerHTML = hf.download;
+      li.appendChild(au);
+      li.appendChild(hf);
+      recordingslist.appendChild(li);
+    });
+	
   }
 	<!-- If user denies access to microphone -->
 	  var onFail = function(e) {
@@ -260,6 +276,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         rec = new Recorder(mediaStreamSource);
 		<!-- Recording Begins -- >
         rec.record();
+		
 		console.log("recording started");
 
         <!-- Comment/Uncomment to allow real-time playback for users -- >
