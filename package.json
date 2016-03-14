@@ -47,6 +47,6 @@
     "lint": "gulp lint"
   },
   "engines": {
-    "node": ">=5.8.0"
+    "node": ">=0.12.0"
   }
 }
