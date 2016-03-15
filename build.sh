@@ -1,8 +1,12 @@
 #!/bin/sh
 
+# Make sure NVM is up to date
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+# Update npm
 npm update @npm -g latest
 # "Server side" gulp & bower
 npm install -g gulp bower && \
+
 # "App Backend" backend-modules
 ## Install "Client side" modules
 npm install && \
@@ -20,7 +24,7 @@ GH_USER="$GH_USER"
 GH_PASS="$GH_PASSWORD"
 
 # Git Credentials
-touch ~/.git-credentials && \
+touch ~/.git-credentials
 echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
 
 # Running this in dev sets owner to sudo
@@ -34,7 +38,8 @@ gulp --cordova 'plugin add cordova-plugin-media'
 gulp --cordova 'build'
 
 # Deploy!
-gulp deploy-gh-pages
+# gulp deploy-gh-pages
+. travis-gh-pages-deploy-runner.sh
 
 # Cleanup
 rm ~/.git-credentials
