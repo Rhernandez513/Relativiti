@@ -12,7 +12,7 @@ if [ $CONTINUOUS_INTEGRATION ]; then
 # Location where this script is stored in the filesystem
   STARTDIR=$( cd "$( "$NVM_DIR" "${BASH_SOURCE[0]}"  )" && pwd  )
   cd "$NVM_DIR" && git pull origin master && git checkout `git describe --abbrev=0 --tags`
-  source "$NVM_DIR/nvm.sh"
+  . "$NVM_DIR/nvm.sh"
   cd "$STARTDIR"
   nvm use stable
   # Update npm
