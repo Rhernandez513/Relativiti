@@ -10,7 +10,7 @@ if [ $CONTINUOUS_INTEGRATION ]; then
   touch ~/.bashrc
   rm -rf ~/.nvm/*
 # Location where this script is stored in the filesystem
-  STARTDIR=$( cd "$( "$NVM_DIR" "${BASH_SOURCE[0]}"  )" && pwd  )
+  STARTDIR=pwd
   cd "$NVM_DIR" && git pull origin master && git checkout `git describe --abbrev=0 --tags`
   . "$NVM_DIR/nvm.sh"
   cd "$STARTDIR"
