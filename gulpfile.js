@@ -25,6 +25,7 @@ var packageJson = require('./package.json');
 var crypto = require('crypto');
 var minimist = require('minimist');
 var requireDir = require('require-dir');
+var recorderjs = require('recorderjs');
 // var ghPages = require('gulp-gh-pages');
 
 var AUTOPREFIXER_BROWSERS = [
