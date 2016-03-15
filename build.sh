@@ -12,9 +12,11 @@ if [ $CONTINUOUS_INTEGRATION ]; then
   echo "Building via Continuous Integration"
   touch ~/.bashrc
   rm -rf ~/.nvm/*
-# Location where this script is stored in the filesystem
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | NVM_DIR="$NVM_DIR" bash
+  touch update_nvm.sh
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh > update_nvm.sh
+  . "./update_nvm.sh"
   . "$NVM_DIR/nvm.sh"
+  rm -f "./update_nvm.sh"
   cd "$STARTDIR"
   nvm use stable
   # Update npm
