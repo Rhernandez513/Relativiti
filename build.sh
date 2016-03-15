@@ -4,19 +4,9 @@
 # Sheet-Music-App Build & Deploy
 #
 
-export STARTDIR=`pwd`
-echo "Starting Directory: $STARTDIR"
+echo "Building Sheet-Music-App"
 
-# Make sure NVM is up to date
-if [ $CONTINUOUS_INTEGRATION ]; then
-  echo "Building via Continuous Integration"
-  . "./travis-pre-build.sh"
-  cd "$STARTDIR"
-  nvm use stable
-else
-  echo "Building Sheet-Music-App"
-fi
-
+nvm use stable
 # Update npm
 npm update @npm -g latest
 # "Server side" gulp & bower

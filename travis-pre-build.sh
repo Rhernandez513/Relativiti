@@ -4,6 +4,10 @@
 # 
 # Used to prep TravisCI Env
 
+# Make sure NVM is up to date
+if [ $CONTINUOUS_INTEGRATION ]; then
+  echo "Building via Continuous Integration"
+fi
 touch ~/.bashrc
 rm -rf "$NVM_DIR"
 touch install_nvm.sh 
