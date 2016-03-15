@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # http://RobertHernandez.io/
 # Sheet-Music-App Build & Deploy
