@@ -2,6 +2,7 @@
 
 # Make sure NVM is up to date
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+nvm use stable
 # Update npm
 npm update @npm -g latest
 # "Server side" gulp & bower
