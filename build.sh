@@ -1,17 +1,21 @@
 #!/bin/sh
 #
 # http://RobertHernandez.io/
+# Sheet-Music-App Build & Deploy
 #
 
 # Make sure NVM is up to date
-if [ "$CONTINUOUS_INTEGRATION" ] ; then
+if [ $CONTINUOUS_INTEGRATION ]; then
+  echo "Building via Continuous Integration"
   rm -rf ~/.nvm
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
   nvm use stable
   # Update npm
   npm update @npm -g latest
   # "Server side" gulp & bower
-  npm install -g gulp bower && \
+  npm install -g gulp bower
+else
+  echo "Building Sheet-Music-App"
 fi
 
 # "App Backend" backend-modules
