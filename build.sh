@@ -15,8 +15,8 @@ if [ $CONTINUOUS_INTEGRATION ]; then
   rm -rf "$NVM_DIR"
   touch update_nvm.sh
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh > update_nvm.sh
-  . $("./update_nvm.sh")
-  . $("$NVM_DIR/nvm.sh")
+  sh "./update_nvm.sh"
+  sh "$NVM_DIR/nvm.sh"
   rm -f "./update_nvm.sh"
   cd "$STARTDIR"
   nvm use stable
