@@ -11,6 +11,8 @@ echo "Starting Directory: $STARTDIR"
 if [ $CONTINUOUS_INTEGRATION ]; then
   echo "Building via Continuous Integration"
   . "./travis-pre-build.sh"
+  cd "$STARTDIR"
+  nvm use stable
 else
   echo "Building Sheet-Music-App"
 fi
