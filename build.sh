@@ -11,11 +11,12 @@ echo "Starting Directory: $STARTDIR"
 if [ $CONTINUOUS_INTEGRATION ]; then
   echo "Building via Continuous Integration"
   touch ~/.bashrc
-  rm -rf ~/.nvm/*
+  NVM_DIR="/home/travis/.nvm"
+  rm -rf "$NVM_DIR"
   touch update_nvm.sh
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh > update_nvm.sh
-  . "./update_nvm.sh"
-  . "$NVM_DIR/nvm.sh"
+  . $("./update_nvm.sh")
+  . $("$NVM_DIR/nvm.sh")
   rm -f "./update_nvm.sh"
   cd "$STARTDIR"
   nvm use stable
