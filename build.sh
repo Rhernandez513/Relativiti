@@ -4,8 +4,7 @@
 #
 
 # Make sure NVM is up to date
-if [ "$CONTINUOUS_INTEGRATION" ]
-then
+if [ "$CONTINUOUS_INTEGRATION" ] ; then
   rm -rf ~/.nvm
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
   nvm use stable
