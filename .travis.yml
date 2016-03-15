@@ -24,7 +24,7 @@ script: "./build.sh"
 after_success: "./travis-gh-pages-deploy-runner.sh"
 deploy:
   provider: heroku
-  app: Sheet-Music-App
+  app: stark-fjord-27495
   strategy: git
   on:
     repo: Rhernandez513/Sheet-Music-App
