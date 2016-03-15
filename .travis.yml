@@ -20,7 +20,7 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 - sleep 3
 before_script: sh -e travis-pre-build.sh
-script: sh -e build.sh
+script: "./build.sh"
 after_success: "./travis-gh-pages-deploy-runner.sh"
 deploy:
   provider: heroku
