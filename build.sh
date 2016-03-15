@@ -12,7 +12,7 @@ if [ $CONTINUOUS_INTEGRATION ]; then
   touch ~/.bashrc
   rm -rf ~/.nvm/*
 # Location where this script is stored in the filesystem
-  cd "$NVM_DIR" && git pull origin master && git checkout `git describe --abbrev=0 --tags`
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | NVM_DIR="$NVM_DIR" bash
   . "$NVM_DIR/nvm.sh"
   cd "$STARTDIR"
   nvm use stable
