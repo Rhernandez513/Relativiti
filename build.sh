@@ -9,7 +9,11 @@ if [ $CONTINUOUS_INTEGRATION ]; then
   echo "Building via Continuous Integration"
   touch ~/.bashrc
   rm -rf ~/.nvm
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+# Location where this script is stored in the filesystem
+  STARTDIR=$( cd "$( dirname "${BASH_SOURCE[0]}"  )" && pwd  )
+  cd "$NVM_DIR" && git pull origin master && git checkout `git describe --abbrev=0 --tags`
+  source "$NVM_DIR/nvm.sh"
+  cd "$STARTDIR"
   nvm use stable
   # Update npm
   npm update @npm -g latest
