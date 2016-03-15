@@ -1,12 +1,19 @@
 #!/bin/sh
+#
+# http://RobertHernandez.io/
+#
 
 # Make sure NVM is up to date
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
-nvm use stable
-# Update npm
-npm update @npm -g latest
-# "Server side" gulp & bower
-npm install -g gulp bower && \
+if [ "$CONTINUOUS_INTEGRATION" ]
+then
+  rm -rf ~/.nvm
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+  nvm use stable
+  # Update npm
+  npm update @npm -g latest
+  # "Server side" gulp & bower
+  npm install -g gulp bower && \
+fi
 
 # "App Backend" backend-modules
 ## Install "Client side" modules

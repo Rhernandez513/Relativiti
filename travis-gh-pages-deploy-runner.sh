@@ -1,10 +1,11 @@
 #!/bin/bash
+# 
+# http://RobertHernandez.io/
 #
 # Used to build TravisCI Versions of Apps && GitHub Pages version
 #
 # Should run only on dev environments  && TravisCI
 #
-
 # Env should be built
 # This is Deploy Script
 
