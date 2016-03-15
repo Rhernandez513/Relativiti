@@ -8,7 +8,7 @@
 if [ $CONTINUOUS_INTEGRATION ]; then
   echo "Building via Continuous Integration"
   touch ~/.bashrc
-  rm -rf ~/.nvm
+  rm -rf ~/.nvm/*
 # Location where this script is stored in the filesystem
   STARTDIR=$( cd "$( "$NVM_DIR" "${BASH_SOURCE[0]}"  )" && pwd  )
   cd "$NVM_DIR" && git pull origin master && git checkout `git describe --abbrev=0 --tags`
