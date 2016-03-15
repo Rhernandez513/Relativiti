@@ -4,30 +4,21 @@
 # Sheet-Music-App Build & Deploy
 #
 
-STARTDIR=`pwd`
+export STARTDIR=`pwd`
 echo "Starting Directory: $STARTDIR"
 
 # Make sure NVM is up to date
 if [ $CONTINUOUS_INTEGRATION ]; then
   echo "Building via Continuous Integration"
-  touch ~/.bashrc
-  NVM_DIR="/home/travis/.nvm"
-  rm -rf "$NVM_DIR"
-  touch update_nvm.sh
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh > update_nvm.sh
-  sh "./update_nvm.sh"
-  sh "$NVM_DIR/nvm.sh"
-  rm -f "./update_nvm.sh"
-  cd "$STARTDIR"
-  nvm use stable
-  # Update npm
-  npm update @npm -g latest
-  # "Server side" gulp & bower
-  npm install -g gulp bower
+  . "./travis-pre-build.sh"
 else
   echo "Building Sheet-Music-App"
 fi
 
+# Update npm
+npm update @npm -g latest
+# "Server side" gulp & bower
+npm install -g gulp bower
 # "App Backend" backend-modules
 ## Install "Client side" modules
 npm install && \
