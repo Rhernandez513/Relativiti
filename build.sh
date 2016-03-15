@@ -33,10 +33,11 @@ gulp --cordova 'platform add android'
 gulp --cordova 'plugin add cordova-plugin-media'
 gulp --cordova 'build'
 
+# Deploy!
 gulp deploy-gh-pages
 
 # Cleanup
 rm ~/.git-credentials
 
-#EOF
+# EOF
 
