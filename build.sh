@@ -4,13 +4,14 @@
 # Sheet-Music-App Build & Deploy
 #
 
+STARTDIR=pwd
+
 # Make sure NVM is up to date
 if [ $CONTINUOUS_INTEGRATION ]; then
   echo "Building via Continuous Integration"
   touch ~/.bashrc
   rm -rf ~/.nvm/*
 # Location where this script is stored in the filesystem
-  STARTDIR=pwd
   cd "$NVM_DIR" && git pull origin master && git checkout `git describe --abbrev=0 --tags`
   . "$NVM_DIR/nvm.sh"
   cd "$STARTDIR"
