@@ -5,7 +5,7 @@
 #
 
 echo "Building Sheet-Music-App"
-
+. "$NVM_DIR/nvm.sh"
 nvm use stable
 # Update npm
 npm update @npm -g latest
