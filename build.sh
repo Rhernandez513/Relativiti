@@ -4,7 +4,8 @@
 # Sheet-Music-App Build & Deploy
 #
 
-STARTDIR=pwd
+STARTDIR=`pwd`
+echo "Starting Directory: $STARTDIR"
 
 # Make sure NVM is up to date
 if [ $CONTINUOUS_INTEGRATION ]; then
