@@ -56,7 +56,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
-
+  
+  <!-- Load in recorder.js Not needed?
+  <script src="scripts\recorder.js"></script>
+  -->
 </head>
 
 <body unresolved class="fullbleed layout vertical">
@@ -132,6 +135,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <p class="paper-font-body2">This is another card.</p>
               </paper-material>
 
+			  <!-- my-recorder Element-->
+				<my-recorder></my-recorder>
+			  
               <paper-material elevation="1" class="paper-font-body2">
                 <h1 id="license">License</h1>
                 <p>Everything in this repo is BSD style license unless otherwise specified.</p>
@@ -205,9 +211,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     -->
 
   </template>
-
   <!-- build:js scripts/app.js -->
-  <script src="scripts/app.js"></script>
+  <script src="scripts/app.js"></script>		
   <!-- endbuild-->
 </body>
 
