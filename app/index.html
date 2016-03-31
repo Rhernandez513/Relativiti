@@ -78,16 +78,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <iron-icon icon="home"></iron-icon>
             <span>Dashboard</span>
           </a>
-          <a data-route="record" href="{{baseUrl}}">
-            <iron-icon icon="home"></iron-icon>
+          <a data-route="record" href="record">
+            <iron-icon icon="settings-voice"></iron-icon>
             <span>Record</span>
           </a>
-          <a data-route="saved" href="{{baseUrl}}">
-            <iron-icon icon="home"></iron-icon>
+          <a data-route="saved" href="saved">
+            <iron-icon icon="visibility"></iron-icon>
             <span>Saved</span>
           </a>
-          <a data-route="tuning" href="{{baseUrl}}">
-            <iron-icon icon="home"></iron-icon>
+          <a data-route="tuning" href="tuning">
+            <iron-icon icon="settings-remote"></iron-icon>
             <span>Tuning</span>
           </a>
         </paper-menu>
@@ -139,28 +139,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </section>
 
-            <section data-route="users">
+            <section data-route="record">
               <paper-material elevation="1">
-                <h2 class="page-title">Users</h2>
-                <p>This is the users section</p>
-                <a href$="{{baseUrl}}users/Addy">Addy</a><br>
-                <a href$="{{baseUrl}}users/Rob">Rob</a><br>
-                <a href$="{{baseUrl}}users/Chuck">Chuck</a><br>
-                <a href$="{{baseUrl}}users/Sam">Sam</a>
+                <h2 class="page-title">Record</h2>
+                <p>This is the recording section</p>
               </paper-material>
             </section>
 
-            <section data-route="user-info">
+            <section data-route="saved">
               <paper-material elevation="1">
-                <h2 class="page-title">User: {{params.name}}</h2>
-                <div>This is {{params.name}}'s section</div>
+                <h2 class="page-title">Saved</h2>
+                <div>Here are your saved compositions</div>
               </paper-material>
             </section>
 
-            <section data-route="contact">
+            <section data-route="tuning">
               <paper-material elevation="1">
-                <h2 class="page-title">Contact</h2>
-                <p>This is the contact section</p>
+                <h2 class="page-title">Tuning</h2>
+                <p>This is the instrument tuner</p>
               </paper-material>
             </section>
 
