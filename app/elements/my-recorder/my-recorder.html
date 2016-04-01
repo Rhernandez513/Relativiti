@@ -6,7 +6,7 @@ but that may just be setting the buffer size.
 -->
 
 <!-- Load in recorder.js -->
-<script src='../../../node_modules/recorderjs/recorder.js'></script>
+<link rel="import" href='../../../node_modules/recorderjs/recorder.js'>
 
 <dom-module id="my-recorder">
 <template>
@@ -22,6 +22,10 @@ but that may just be setting the buffer size.
 </template>
 
 <script>
+Polymer({
+  is: 'my-recorder', 
+  properties: {}
+});
 var rec;
 var recordingslist;
 var audio = document.querySelector('audio');
@@ -41,7 +45,7 @@ var onSuccess = function(s) {
   var AudioContext = window.AudioContext || window.webkitAudioContext;
   var audioCtx = new AudioContext();
   var mediaStreamSource = audioCtx.createMediaStreamSource(s);
-  rec = new window.aRecorder(mediaStreamSource, {
+  rec = new window.Recorder(mediaStreamSource, {
       workerPath: '../../node_modules/recorderjs/recorderWorker.js'
     });
   // Recording Begins
@@ -69,7 +73,7 @@ function stopRecording(button) {
   rec.exportWAV(function(blob) {
     var url = URL.createObjectURL(blob);
     var li = document.createElement('li');
-    var au = document.createElement(audio);
+    var au = document.createElement('audio');
     var hf = document.createElement('a');  
     au.controls = true;
     au.src = url;
