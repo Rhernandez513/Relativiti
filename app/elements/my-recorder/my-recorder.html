@@ -6,9 +6,9 @@ but that may just be setting the buffer size.
 -->
 
 <!-- Load in recorder.js -->
-<script src='../../node_modules/recorderjs/recorder.js'></script>
+<script src='../../../node_modules/recorderjs/recorder.js'></script>
 
-<dom-module id='my-recorder'>
+<dom-module id="my-recorder">
 <template>
     <style type='text/css'>
         ul { list-style: none; }
@@ -20,6 +20,7 @@ but that may just be setting the buffer size.
     <h2>Recordings</h2>
      <ul id='recordingslist'></ul>
 </template>
+</dom-module>
 
 <script>
 var rec;
@@ -83,4 +84,3 @@ function stopRecording(button) {
   rec.clear();
 }
 </script>
-</dom-module>
