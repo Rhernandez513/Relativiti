@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
+    "browserify": "^5.11.1",
     "browser-sync": "^2.7.7",
     "chalk": "^1.1.0",
     "connect-history-api-fallback": "^1.1.0",
@@ -30,15 +31,18 @@
     "gulp-uglify": "^1.2.0",
     "gulp-useref": "^2.1.0",
     "gulp-vulcanize": "^6.0.0",
-    "jshint-stylish": "^2.0.0",
+    "jshint-stylish": "^2.1.0",
     "merge-stream": "^1.0.0",
     "minimist": "^1.2.0",
     "path": "^0.11.14",
+    "recorderjs": "^1.0.1",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.0.2",
+    "socket.io": "^1.4.5",
     "vinyl-paths": "^2.0.0",
     "vulcanize": ">= 1.4.2",
     "web-component-tester": "^3.4.0",
+    "workerify": "^0.3.0",
     "xml2js": "^0.4.9"
   },
   "scripts": {
