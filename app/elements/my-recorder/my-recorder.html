@@ -85,7 +85,7 @@ var onSuccess = function(s) {
   console.log('onSuccess');
   var mediaStreamSource = audioCtx.createMediaStreamSource(s);
   mediaStreamSource.connect(analyser);
-  rec = new Recorder(mediaStreamSource);
+  rec = new window.Recorder(mediaStreamSource);
   // Recording Begins
   rec.record();  
   console.log('recording started');
