@@ -2,25 +2,27 @@
 <template>
     <style type='text/css'>
     </style>
-    <p><canvas id='myCanvas' width='550' height='400'></canvas></p>
+    <p><canvas id='myCanvas' width='550' height='400' onload="initCanvas()"></canvas></p>
     test
 </template>
 
 <script>
 Polymer({
-  is: 'my-tuner'
+  is: 'my-tuner',
+  ready: function() {  
+    console.log(document.getElementsByTagName(this.$.myCanvas));
+  }
 });
 
-var myCanvas = null;
-var canvasCtx = null;
-
+var myCanvas;
+var canvasCtx;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
 
 // mozGetUserMedia deprecated but automatically switches
 navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
  navigator.mozGetUserMedia || navigator.msGetUserMedia;
-//var AudioContext = window.AudioContext || window.webkitAudioContext;
+var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
 
 var analyser = audioCtx.createAnalyser();
@@ -30,30 +32,8 @@ var dataArray = new Uint8Array(bufferLength);
 analyser.getByteTimeDomainData(dataArray);
 analyser.getByteFrequencyData(dataArray);
 
-if (navigator.getUserMedia) {
-    navigator.getUserMedia({audio: true}, onSuccess, onFail);
-  } else {
-    console.log('navigator.getUserMedia not present');
-  }
-
-// If user denies access to microphone
-var onFail = function(e) {
-  console.log('Access Denied!', e);
-};
-    
-// If user allows access to microphone
-var onSuccess = function(s) {
-  console.log('onSuccess');
-  var mediaStreamSource = audioCtx.createMediaStreamSource(s);
-  mediaStreamSource.connect(analyser);
-  // Comment/Uncomment to allow real-time playback for users
-  mediaStreamSource.connect(audioCtx.destination);
-};
-
 function draw() {
-  myCanvas = document.getElementById('myCanvas');
-  canvasCtx = myCanvas.getContext('2d');
-  var drawVisual = requestAnimationFrame(initializeCanvas);
+  var drawVisual = requestAnimationFrame(draw);
   analyser.getByteTimeDomainData(dataArray);
   canvasCtx.fillStyle = 'rgb(0, 0, 0)';
   canvasCtx.fillRect(0, 0, myCanvas.width, myCanvas.height);
@@ -74,8 +54,34 @@ function draw() {
   }
   canvasCtx.lineTo(myCanvas.width, myCanvas.height / 2);
   canvasCtx.stroke();
+  draw();
 }
 
-draw();
+function initCanvas() {
+  myCanvas = document.getElementsByTagName(this.$.myCanvas);
+  canvasCtx = myCanvas.getContext('2d');
+  draw();
+}
+
+// If user denies access to microphone
+var onFail = function(e) {
+  console.log('Access Denied!', e);
+};
+    
+// If user allows access to microphone
+var onSuccess = function(s) {
+  console.log('onSuccess');
+  var mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource.connect(analyser);
+  // Comment/Uncomment to allow real-time playback for users
+  mediaStreamSource.connect(audioCtx.destination);
+};
+
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true}, onSuccess, onFail);
+} else {
+  console.log('navigator.getUserMedia not present');
+}
+
 </script>
 </dom-module>
