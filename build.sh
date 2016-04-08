@@ -6,6 +6,8 @@
 
 echo "Building Relativiti"
 # source "$NVM_DIR/nvm.sh"
+find . -name npm -print
+find . -name nvm -print
 nvm use stable
 # Update npm
 npm update @npm -g latest
