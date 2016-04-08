@@ -7,8 +7,10 @@
 echo "Building Relativiti"
 source "./travis-pre-build.sh"
 # source "$NVM_DIR/nvm.sh"
+. ~/.nvm/nvm.sh
 # find . -name npm -print
 # find . -name nvm -print
+nvm install stable
 nvm use stable
 # Update npm
 npm update @npm -g latest
