@@ -45,7 +45,7 @@ gulp --cordova 'build'
 
 # Deploy!
 # gulp deploy-gh-pages
-. travis-gh-pages-deploy-runner.sh
+# . travis-gh-pages-deploy-runner.sh
 
 # Cleanup
 rm ~/.git-credentials
