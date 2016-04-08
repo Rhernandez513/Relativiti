@@ -1,5 +1,5 @@
-#!/bin/bash
-# 
+#!/usr/bin/env bash
+#
 # http://RobertHernandez.io/
 #
 # Used to build TravisCI Versions of Apps && GitHub Pages version

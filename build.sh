@@ -4,7 +4,7 @@
 # Sheet-Music-App Build & Deploy
 #
 
-echo "Building Sheet-Music-App"
+echo "Building Relativiti"
 source "$NVM_DIR/nvm.sh"
 nvm use stable
 # Update npm
