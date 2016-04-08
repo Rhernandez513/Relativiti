@@ -21,7 +21,7 @@ before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 - sleep 3
-# before_script: travis-pre-build.sh
+before_script: travis-pre-build.sh
 script: build.sh
 after_success: travis-gh-pages-deploy-runner.sh
 deploy:
@@ -29,7 +29,7 @@ deploy:
   app: stark-fjord-27495
   strategy: git
   on:
-    repo: Rhernandez513/Sheet-Music-App
+    repo: Rhernandez513/Relativiti
   api_key:
     secure: NJfb4r0VHlhR0QaKzqifJqPkbG8ylwZTQ3jUS8d4C52IbFhVtmp5NvV3RDXA/pcNMYqKUOFt9GWj7oN3i0lN6X2YJbPGaTSS+1qwJwtXozzE0C7+B/yDi/dLBe/oKitEHKdqj2EUZPhBHBbF76tABh5KHoxZwmgURcE/tSicsBp2FXf7YQhKCQJ8mkvXSFwWHQUAKPoR0qGlcsKKBGzTiVR3egbVslyjgVKeyXZtfP0lQoZmxYZHW59nKGWRVtB8Her2zhsDLKCoelb1A4aiwuj7tTXLmw+MlTpqGP9eFRQEypQv4ckO+JsgU58sd4LAT16VFaUoZoAkW/1tydE49ctNSug8KwDLHltknPUumCEBBYTLd+iUG2xxj0g6uF87ZEigecz20uN0oUoD9Q2BNHFai4N6uVmOZR8VzjlhpmkrEPl1IhO0aboVzxL2kAbwPRUk0jq0YSQsP6fdwaouODIgYdzLShFgtR5/Crrutbbb6KaafIErWtiHugagXes0lYCHb/GPUfr8Fe7MLrxtZtKjXHW5GQqw6FwmEGgCf1009+mgRlFJUObIFZ9nwcdDwnXQjUtMN+WZediXaXyvdHF2+Il11ICbtOsjIEdGKBgM3m5SFRYL4iXcVpaEsXliboHGe2V9Ky9MGt78qVwu9ScZV5zxayZUsYN1K7+MMvI=
 env:
