@@ -10,5 +10,72 @@
 Polymer({
   is: 'my-tuner'
 });
+
+var myCanvas = null;
+var canvasCtx = null;
+
+var audio = document.querySelector('audio');
+window.URL = window.URL || window.webkitURL;
+
+// mozGetUserMedia deprecated but automatically switches
+navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+ navigator.mozGetUserMedia || navigator.msGetUserMedia;
+//var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioCtx = new AudioContext();
+
+var analyser = audioCtx.createAnalyser();
+analyser.fftSize = 2048;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+analyser.getByteTimeDomainData(dataArray);
+analyser.getByteFrequencyData(dataArray);
+
+if (navigator.getUserMedia) {
+    navigator.getUserMedia({audio: true}, onSuccess, onFail);
+  } else {
+    console.log('navigator.getUserMedia not present');
+  }
+
+// If user denies access to microphone
+var onFail = function(e) {
+  console.log('Access Denied!', e);
+};
+    
+// If user allows access to microphone
+var onSuccess = function(s) {
+  console.log('onSuccess');
+  var mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource.connect(analyser);
+  // Comment/Uncomment to allow real-time playback for users
+  mediaStreamSource.connect(audioCtx.destination);
+};
+
+function draw() {
+  myCanvas = document.getElementById('myCanvas');
+  canvasCtx = myCanvas.getContext('2d');
+  var drawVisual = requestAnimationFrame(initializeCanvas);
+  analyser.getByteTimeDomainData(dataArray);
+  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+  canvasCtx.fillRect(0, 0, myCanvas.width, myCanvas.height);
+  canvasCtx.lineWidth = 2;
+  canvasCtx.strokeStyle = 'rgb(0, 255, 255)';
+  canvasCtx.beginPath();
+  var sliceWidth = myCanvas.width * 1.0 / bufferLength;
+  var x = 0;
+  for (var i = 0; i < bufferLength; i++) {
+    var v = dataArray[i] / 128.0;
+    var y = v * myCanvas.height / 2;
+    if (i === 0) {
+      canvasCtx.moveTo(x, y);
+    } else {
+      canvasCtx.lineTo(x, y);
+    }
+    x += sliceWidth;
+  }
+  canvasCtx.lineTo(myCanvas.width, myCanvas.height / 2);
+  canvasCtx.stroke();
+}
+
+draw();
 </script>
 </dom-module>
