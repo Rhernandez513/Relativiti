@@ -15,6 +15,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh > i
 sh -e "./install_nvm.sh"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 rm -f "./install_nvm.sh"
+nvm use stable
 
 # EOF
 
