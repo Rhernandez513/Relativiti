@@ -16,7 +16,7 @@ Tuning application using AnalyzerNode and Web Audio API to stream and visualize
 var canvas;
 var canvasCtx;
 function init() {
-  canvas = document.getElementId('tunerCanvas');
+  canvas = document.getElementById('tunerCanvas');
   canvasCtx = canvas.getContext('2d');
   console.log('canvas initialized');
 }
@@ -108,6 +108,6 @@ function stopAudioStream(button) {
   isStreaming = false;
   navigator.getUserMedia = false;
 }
-
+draw();
 </script>
 </dom-module>
