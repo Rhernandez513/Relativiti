@@ -83,10 +83,6 @@ var onSuccess = function(s) {
   mediaStreamSource.connect(analyser);
   // Comment/Uncomment to allow real-time playback for users
   mediaStreamSource.connect(audioCtx.destination);
-
-  while (isStreaming) {
-    draw();
-  }
 };
 
 function startAudioStream(button) {
