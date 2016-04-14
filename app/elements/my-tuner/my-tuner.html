@@ -7,8 +7,8 @@ Tuning application using AnalyzerNode and Web Audio API to stream and visualize
     <style type='text/css'>
     </style>
     <p>
-    <input onclick='startAudioStream(this)' type='button' value='Use live audio'/>
-    <input onclick='stopAudioStream(this)' type='button' disabled value='Stop'/>
+    <!--input onclick='startAudioStream(this)' type='button' value='Use live audio'/>
+    <input onclick='stopAudioStream(this)' type='button' disabled value='Stop'/-->
     </p>
 </template>
 
@@ -85,24 +85,33 @@ var onSuccess = function(s) {
   mediaStreamSource.connect(audioCtx.destination);
 };
 
-function startAudioStream(button) {
+/*function startAudioStream(button) {
   navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || 
   navigator.mozGetUserMedia || navigator.msGetUserMedia;
   if (navigator.getUserMedia) {
     button.disabled = true;
     button.nextElementSibling.disabled = false;
+
     navigator.getUserMedia({audio: true}, onSuccess, onFail);
   } else {
     console.log('navigator.getUserMedia not present');
   }
-}
+}*/
 
-function stopAudioStream(button) {
+/*function stopAudioStream(button) {
   console.log('Streaming Stopped!');
   button.disabled = true;
   button.previousElementSibling.disabled = false;
   isStreaming = false;
   navigator.getUserMedia = false;
+}*/
+
+navigator.getUserMedia  = navigator.getUserMedia || 
+navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true}, onSuccess, onFail);
+} else {
+  console.log('navigator.getUserMedia not present');
 }
 draw();
 </script>
