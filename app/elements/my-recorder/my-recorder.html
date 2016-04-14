@@ -40,8 +40,10 @@ window.URL = window.URL || window.webkitURL;
 navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
  navigator.mozGetUserMedia || navigator.msGetUserMedia;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioCtx = new AudioContext();
 
+var audioCtx = new AudioContext();
+var mySampleRate = audioCtx.sampleRate;
+var mySampleRate2 = mySampleRate/5000;
 var analyser = audioCtx.createAnalyser();
 analyser.fftSize = 2048;
 var bufferLength = analyser.frequencyBinCount;
@@ -83,6 +85,8 @@ var onFail = function(e) {
 // If user allows access to microphone
 var onSuccess = function(s) {
   console.log('onSuccess');
+  console.log(mySampleRate);
+  console.log(mySampleRate2);
   var mediaStreamSource = audioCtx.createMediaStreamSource(s);
   mediaStreamSource.connect(analyser);
   rec = new window.Recorder(mediaStreamSource);

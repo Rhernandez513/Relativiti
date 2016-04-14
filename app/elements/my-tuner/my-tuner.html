@@ -1,0 +1,9 @@
+//This will take audio input and display the note. Used for tuning devices
+
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+var audioContext = null;
+
+window.onload = function(){
+	audioContext = new AudioContext();
+}
