@@ -440,7 +440,7 @@ PitchDetector.prototype.autoCorrelate = function AutoCorrelate(event) {
     this.debug.worstPeriod = worstPeriod;
     this.debug.bestCorrelation = bestCorrelation;
     this.debug.worstCorrelation = worstCorrelation;
-    this.debug.frequency = bestPeriod > 0? this.sampleRate/bestPeriod: 0;
+    this.debug.frequency = bestPeriod > 0 ? this.sampleRate / bestPeriod : 0;
   }
   if (bestCorrelation > 0.01 && foundPitch) {
     this.stats.detected = true;
@@ -451,22 +451,29 @@ PitchDetector.prototype.autoCorrelate = function AutoCorrelate(event) {
     this.stats.time = this.context.currentTime;
     this.stats.rms = rms;
     var shift = 0;
-    if (this.options.interpolateFrequency && i >= 3 && period >= bestPeriod + 1 && this.correlations[bestPeriod + 1] && this.correlations[bestPeriod - 1]) {
-      // Now we need to tweak the period - by interpolating between the values to the left and right of the
-      // best period, and shifting it a bit.  This is complex, and HACKY in this code (happy to take PRs!) -
-      // we need to do a curve fit on this.correlations[] around bestPeriod in order to better determine precise
+    var boolean1 = this.options.interpolateFrequency && i >= 3;
+    var boolean2 = period >= bestPeriod + 1;
+    var boolean3 = this.correlations[bestPeriod + 1] && this.correlations[bestPeriod - 1];
+    if (boolean1 && boolean2 && boolean3) {
+      // Now we need to tweak the period - by interpolating 
+      //between the values to the left and right of the
+      // best period, and shifting it a bit.  This is complex, 
+      //and HACKY in this code (happy to take PRs!) -
+      // we need to do a curve fit on this.correlations[] around
+      // bestPeriod in order to better determine precise
       // (anti-aliased) period.
       // we know bestPeriod >=1, 
       // since foundPitch cannot go to true until the second pass (period=1), and 
       // we can't drop into this clause until the following pass (else if).
-      shift = (this.correlations[bestPeriod + 1] - this.correlations[bestPeriod - 1]) / bestCorrelation;  
+      shift = (this.correlations[bestPeriod + 1] - this.correlations[bestPeriod - 1]);
+      shift = shift / bestCorrelation;  
       shift = shift * 8;
     }
-    this.stats.frequency = this.sampleRate/(bestPeriod + shift);
+    this.stats.frequency = this.sampleRate / (bestPeriod + shift);
     if (this.options.onDebug) {
       this.debug.detected = true;
       this.debug.frequency = this.stats.frequency;
-      }
+    }
     if (this.options.stopAfterDetection) {
       this.started = false;
     }
