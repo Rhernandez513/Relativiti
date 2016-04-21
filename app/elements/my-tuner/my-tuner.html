@@ -1,9 +1,108 @@
-//This will take audio input and display the note. Used for tuning devices
+<!--
+Tuning application using AnalyzerNode and Web Audio API to stream and visualize
+-->
 
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
+<dom-module id='my-tuner'>
+<template>
+    <style type='text/css'>
+    </style>
+    <p>
+    <!--input onclick='startAudioStream(this)' type='button' value='Use live audio'/>
+    <input onclick='stopAudioStream(this)' type='button' disabled value='Stop'/-->
+    </p>
+</template>
 
-var audioContext = null;
-
-window.onload = function(){
-	audioContext = new AudioContext();
+<script>
+var canvas;
+var canvasCtx;
+function init() {
+  canvas = document.getElementById('tunerCanvas');
+  canvasCtx = canvas.getContext('2d');
+  console.log('canvas initialized');
 }
+Polymer({
+  is: 'my-tuner',
+  ready: function() {
+    console.log(document.getElementsByTagName('tunerCanvas'));
+    window.onload = function() {
+      init();
+    };
+  }
+});
+var mediaStreamSource;
+var audio = document.querySelector('audio');
+window.URL = window.URL || window.webkitURL;
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioCtx = new AudioContext();
+var isStreaming = false;
+var analyser = audioCtx.createAnalyser();
+analyser.fftSize = 2048;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+analyser.getByteTimeDomainData(dataArray);
+analyser.getByteFrequencyData(dataArray);
+function draw() {
+  var drawVisual = requestAnimationFrame(draw);
+  analyser.getByteTimeDomainData(dataArray);
+  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+  canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+  canvasCtx.lineWidth = 2;
+  canvasCtx.strokeStyle = 'rgb(0, 255, 255)';
+  canvasCtx.beginPath();
+  var sliceWidth = canvas.width * 1.0 / bufferLength;
+  var x = 0;
+  for (var i = 0; i < bufferLength; i++) {
+    var v = dataArray[i] / 128.0;
+    var y = v * canvas.height / 2;
+    if (i === 0) {
+      canvasCtx.moveTo(x, y);
+    } else {
+      canvasCtx.lineTo(x, y);
+    }
+    x += sliceWidth;
+  }
+  canvasCtx.lineTo(canvas.width, canvas.height / 2);
+  canvasCtx.stroke();
+}
+// If user denies access to microphone
+var onFail = function(e) {
+  console.log('Access Denied!', e);
+};
+    
+// If user allows access to microphone
+var onSuccess = function(s) {
+  isStreaming = true;
+  console.log('Streaming!');
+  mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource.connect(analyser);
+  // Comment/Uncomment to allow real-time playback for users
+  mediaStreamSource.connect(audioCtx.destination);
+};
+/*function startAudioStream(button) {
+  navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || 
+  navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  if (navigator.getUserMedia) {
+    button.disabled = true;
+    button.nextElementSibling.disabled = false;
+    navigator.getUserMedia({audio: true}, onSuccess, onFail);
+  } else {
+    console.log('navigator.getUserMedia not present');
+  }
+}*/
+/*function stopAudioStream(button) {
+  console.log('Streaming Stopped!');
+  button.disabled = true;
+  button.previousElementSibling.disabled = false;
+  isStreaming = false;
+  navigator.getUserMedia = false;
+}*/
+navigator.getUserMedia  = navigator.getUserMedia || 
+navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true}, onSuccess, onFail);
+} else {
+  console.log('navigator.getUserMedia not present');
+}
+draw();
+</script>
+</dom-module>

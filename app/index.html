@@ -172,9 +172,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="tuning">
-              <paper-material elevation="1">
+              <paper-material elevation="1" id='background'>
                 <h2 class="page-title">Tuning</h2>
                 <p>This is the instrument tuner</p>
+                <my-tuner></my-tuner>
+                <p><canvas id='tunerCanvas'
+                style='border: 1px solid rgb(170, 170, 170);left: 10px;top: 10px;width: 65%; -moz-user-select: none;'></canvas></p>
               </paper-material>
             </section>
 
@@ -193,7 +196,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  duration="6000"
                  text="Caching complete! This app will work offline.">
     </paper-toast>
-
     <platinum-sw-register auto-register
                           clients-claim
                           skip-waiting
