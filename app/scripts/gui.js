@@ -1,5 +1,3 @@
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-
 $(function() {
   // Global Variables
   var audioContext = new AudioContext();
