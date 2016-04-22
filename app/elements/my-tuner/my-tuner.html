@@ -136,8 +136,7 @@ code { color: blue; padding: 2px;}
 <tr>
   <td>Visualize:</td>
   <td>
-    <select id="draw">
-      <option value="onDebug">everything</option>
+    <select id="draw" value="onDetect">
       <option value="onDetect">only when a pitch is detected</option>
     </select>
   </td>
@@ -218,8 +217,8 @@ var dataArray = new Uint8Array(bufferLength);
 analyser.getByteTimeDomainData(dataArray);
 analyser.getByteFrequencyData(dataArray);
 
-function draw() {
-  var drawVisual = requestAnimationFrame(draw);
+function drawCanvas() {
+  var drawVisual = requestAnimationFrame(drawCanvas);
   analyser.getByteTimeDomainData(dataArray);
   canvasCtx.fillStyle = 'rgb(0, 0, 0)';
   canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
@@ -257,27 +256,6 @@ var onSuccess = function(s) {
   mediaStreamSource.connect(audioCtx.destination);
 };
 
-/*function startAudioStream(button) {
-  navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || 
-  navigator.mozGetUserMedia || navigator.msGetUserMedia;
-  if (navigator.getUserMedia) {
-    button.disabled = true;
-    button.nextElementSibling.disabled = false;
-
-    navigator.getUserMedia({audio: true}, onSuccess, onFail);
-  } else {
-    console.log('navigator.getUserMedia not present');
-  }
-}*/
-
-/*function stopAudioStream(button) {
-  console.log('Streaming Stopped!');
-  button.disabled = true;
-  button.previousElementSibling.disabled = false;
-  isStreaming = false;
-  navigator.getUserMedia = false;
-}*/
-
 navigator.getUserMedia  = navigator.getUserMedia || 
 navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 if (navigator.getUserMedia) {
@@ -285,6 +263,6 @@ if (navigator.getUserMedia) {
 } else {
   console.log('navigator.getUserMedia not present');
 }
-draw();
+drawCanvas();
 </script>
 </dom-module>
