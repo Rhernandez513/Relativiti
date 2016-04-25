@@ -20,6 +20,12 @@
 ### Demo
 See latest Polymer Starter Kit Demo (from master) at http://polymerelements.github.io/polymer-starter-kit
 
+## Installing and Deploying Code
+
+To Install, first use git to clone the repository.
+Then navigate to the base folder "sheet-music-app" and run the command build.sh this will take a bit.
+Finally, to run the app on localhost, use the command gulp serve from the base folder and it should open in your browser.
+
 ## Getting Started
 
 To take advantage of Polymer Starter Kit you need to:
