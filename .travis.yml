@@ -9,16 +9,13 @@ branches:
   only:
   - master
   - development
-  - build-system-fix
 addons:
   firefox: latest
   apt:
     sources:
     - google-chrome
-    packages:
-    - lsb-base
-    - libstdc++6
-    - google-chrome-stable
+    # packages:
+    # - google-chrome-stable
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
