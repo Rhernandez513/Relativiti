@@ -57,6 +57,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
 </head>
 
 <body unresolved class="fullbleed layout vertical">
@@ -172,9 +175,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="tuning">
-              <paper-material elevation="1">
+              <paper-material elevation="1" id='background'>
                 <h2 class="page-title">Tuning</h2>
                 <p>This is the instrument tuner</p>
+                <my-tuner></my-tuner>
+                <p><canvas id='tunerCanvas'
+                style='border: 1px solid rgb(170, 170, 170);left: 10px;top: 10px;width: 50%; -moz-user-select: none;'></canvas></p>
               </paper-material>
             </section>
 

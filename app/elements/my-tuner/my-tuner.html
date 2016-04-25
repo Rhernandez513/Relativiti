@@ -1,0 +1,254 @@
+<!--
+Tuning application using AnalyzerNode and Web Audio API to stream and visualize
+-->
+
+<dom-module id='my-tuner'>
+<template>
+<script src="../../scripts/gui.js"></script>
+<script src="../../scripts/pitchdetector.js"></script>
+<script src="../../scripts/pitchdetectorcanvas.js"></script>
+<style>
+body { font-family: serif;}
+#note { font-size: 160px; }
+.droptarget { background-color: #348781}
+div.confident { color: black; }
+div.vague { color: lightgrey; }
+#note { display: inline-block; height:180px; text-align: left;}
+
+#detector { width: 300px; height: 246px; border: 4px solid gray; border-radius: 8px; text-align: center; padding-top: 10px; display: inline-block; float: left;}
+#waveform {border: 4px solid gray; border-radius: 8px; display: inline-block; width: 535px; height: 256px;  margin-left: 10px; float: left;}
+#flat { display: none; }
+#sharp { display: none; }
+.box {
+  float: left;
+  width: 535px;
+}
+.hidden {
+  display: none;
+}
+.invisible {
+  visibility: hidden;
+}
+.box p {
+  margin-left: 10px;
+}
+.flat #flat { display: inline; }
+.sharp #sharp { display: inline; }
+p {clear: both; padding-top: 15px;}
+code { color: blue; padding: 2px;}
+</style>
+
+<div>
+<h1>Pitch Detector</h1>
+<table>
+<tr>
+  <td>input:</td>
+  <td>
+    <select id="input">
+      <option value="mic">microphone</option>
+      <option value="audio">demo audio</option>
+      <option value="osc">oscillator</option>
+    </select>
+    <span id="notes" class="">
+      - Test Tones: 
+      <button onclick="playNote(440)">440</button>
+      <button onclick="playNote(880)">880</button>
+      <button onclick="playNote(1600)">1600</button>
+      <button onclick="stopNote()">stop</button>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>output:</td>
+  <td>
+    <label for="output">
+      <input id="output" type="checkbox"> 
+      Speaker 
+    </label>
+  </td>
+</tr>
+<tr>
+  <td>length:</td>
+  <td>
+    <select id="length">
+      <option value="2048">2048</option>
+    </select>
+    Audio Buffer Length
+  </td>
+</tr>
+<tr>
+  <td>minRms:</td>
+  <td>
+    <input id="minrms" type="number" value="0.01"/> Minimal signal strength (Red)
+  </td>
+</tr>
+<tr>
+  <td>normalize:</td>
+  <td>
+    <select id="normalize">
+      <option value="none">none</option>
+      <option value="rms">RMS (signal strength)</option>
+      <option value="peak">Peak</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td>Pitch Detection:</td>
+  <td>
+    <select id="detection">
+      <option value="none">best auto-correlation</option>
+      <option value="correlation">first peak auto-correlation</option>
+      <option value="strength">first increase in auto-correlation</option>
+    </select>
+    <span class="strength hidden">
+    - minCorrelationIncrease (0-1): <input id="strength" type="number" value="0.5"/> 
+    (Blue)
+    </span>
+    <span class="correlation hidden">
+    - minCorrelation(0-1): <input id="correlation" type="number" value="0.9"/> 
+    (Yellow)
+    </span>
+  </td>
+</tr>
+<tr>
+  <td>Pitch Detection Range:</td>
+  <td>
+    <select id="range">
+      <option value="none">everything</option>
+      <option value="Frequency">limit frequency</option>
+      <option value="Period">limit period</option>
+      <option value="Note">limit midi note number</option>
+    </select>
+    <span class="range hidden">
+      min: <input id="min" type="number"/> 
+      max: <input id="max" type="number"/>
+    </span>
+     (Green)
+  </td>
+</tr>
+<tr>
+  <td>Visualize:</td>
+  <td>
+    <select id="draw" value="onDetect">
+      <option value="onDetect">only when a pitch is detected</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td>stopAfterDetection</td>
+  <td>
+    <label for="stopAfterDetection">
+      <input id="stopAfterDetection" type="checkbox"> 
+      stops after first pitch is detected
+    </label>
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td>
+    <hr/>
+    <button onclick="start()" id="start">Update PitchDetector</button>
+    <button onclick="stop()" id="stop">Stop</button>
+  </td>
+</tr>
+</table>
+
+</div>
+<br/>
+
+<div id="detector" class="vague">
+<div class="pitch"><span id="pitch">--</span>Hz</div>
+<div class="note"><span id="note">--</span></div>   
+<div id="detune"><span id="detune_amt">--</span><span id="flat"> cents &#9837;</span><span id="sharp"> cents &#9839;</span></div>
+</div>
+
+<div class="box">
+<canvas id="waveform" width="512" height="256"></canvas>
+<pre id="settings"></pre>
+</div>
+
+</template>
+
+<script>
+var tunerCanvas;
+var canvasCtx;
+function init() {
+  tunerCanvas = document.getElementById('tunerCanvas');
+  canvasCtx = tunerCanvas.getContext('2d');
+  console.log('canvas initialized');
+}
+
+Polymer({
+  is: 'my-tuner',
+  ready: function() {
+    console.log(document.getElementsByTagName('tunerCanvas'));
+    window.onload = function() {
+      init();
+    };
+  }
+});
+
+var mediaStreamSource;
+var audio = document.querySelector('audio');
+window.URL = window.URL || window.webkitURL;
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioCtx = new AudioContext();
+var isStreaming = false;
+
+var analyser = audioCtx.createAnalyser();
+analyser.fftSize = 2048;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+analyser.getByteTimeDomainData(dataArray);
+analyser.getByteFrequencyData(dataArray);
+
+function drawCanvas() {
+  var drawVisual = requestAnimationFrame(drawCanvas);
+  analyser.getByteTimeDomainData(dataArray);
+  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+  canvasCtx.fillRect(0, 0, tunerCanvas.width, tunerCanvas.height);
+  canvasCtx.lineWidth = 2;
+  canvasCtx.strokeStyle = 'rgb(0, 255, 255)';
+  canvasCtx.beginPath();
+  var sliceWidth = tunerCanvas.width * 1.0 / bufferLength;
+  var x = 0;
+  for (var i = 0; i < bufferLength; i++) {
+    var v = dataArray[i] / 128.0;
+    var y = v * tunerCanvas.height / 2;
+    if (i === 0) {
+      canvasCtx.moveTo(x, y);
+    } else {
+      canvasCtx.lineTo(x, y);
+    }
+    x += sliceWidth;
+  }
+  canvasCtx.lineTo(tunerCanvas.width, tunerCanvas.height / 2);
+  canvasCtx.stroke();
+}
+
+// If user denies access to microphone
+var onFail = function(e) {
+  console.log('Access Denied!', e);
+};
+    
+// If user allows access to microphone
+var onSuccess = function(s) {
+  isStreaming = true;
+  console.log('Streaming!');
+  mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource.connect(analyser);
+  // Comment/Uncomment to allow real-time playback for users
+  //mediaStreamSource.connect(audioCtx.destination);
+};
+
+navigator.getUserMedia  = navigator.getUserMedia || 
+navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true}, onSuccess, onFail);
+} else {
+  console.log('navigator.getUserMedia not present');
+}
+drawCanvas();
+</script>
+</dom-module>
