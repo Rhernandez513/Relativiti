@@ -61,6 +61,7 @@ $(function() {
     delete options.input;
     $('#settings').text(JSON.stringify(options,null,4));
     window.pitchDetector = pitchDetector;
+    
   };
 
   function draw2(stats, detector) {
