@@ -10,6 +10,9 @@ Tuning application using AnalyzerNode and Web Audio API to stream and visualize
 <style>
 body { font-family: serif;}
 #note { font-size: 160px; }
+#pitch { font-size: 80px; }
+#detune { font-size: 60px }
+#detune_amt {font-size: 60px}
 .droptarget { background-color: #348781}
 div.confident { color: black; }
 div.vague { color: lightgrey; }
@@ -32,141 +35,31 @@ div.vague { color: lightgrey; }
 .box p {
   margin-left: 10px;
 }
-.flat #flat { display: inline; }
-.sharp #sharp { display: inline; }
+.flat #flat { font-size: 60px}
+.sharp #sharp { font-size: 60px}
+
 p {clear: both; padding-top: 15px;}
 code { color: blue; padding: 2px;}
 </style>
 
 <div>
-<h1>Pitch Detector</h1>
-<table>
-<tr>
-  <td>input:</td>
-  <td>
-    <select id="input">
-      <option value="mic">microphone</option>
-      <option value="audio">demo audio</option>
-      <option value="osc">oscillator</option>
-    </select>
-    <span id="notes" class="">
-      - Test Tones: 
-      <button onclick="playNote(440)">440</button>
-      <button onclick="playNote(880)">880</button>
-      <button onclick="playNote(1600)">1600</button>
-      <button onclick="stopNote()">stop</button>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td>output:</td>
-  <td>
-    <label for="output">
-      <input id="output" type="checkbox"> 
-      Speaker 
-    </label>
-  </td>
-</tr>
-<tr>
-  <td>length:</td>
-  <td>
-    <select id="length">
-      <option value="2048">2048</option>
-    </select>
-    Audio Buffer Length
-  </td>
-</tr>
-<tr>
-  <td>minRms:</td>
-  <td>
-    <input id="minrms" type="number" value="0.01"/> Minimal signal strength (Red)
-  </td>
-</tr>
-<tr>
-  <td>normalize:</td>
-  <td>
-    <select id="normalize">
-      <option value="none">none</option>
-      <option value="rms">RMS (signal strength)</option>
-      <option value="peak">Peak</option>
-    </select>
-  </td>
-</tr>
-<tr>
-  <td>Pitch Detection:</td>
-  <td>
-    <select id="detection">
-      <option value="none">best auto-correlation</option>
-      <option value="correlation">first peak auto-correlation</option>
-      <option value="strength">first increase in auto-correlation</option>
-    </select>
-    <span class="strength hidden">
-    - minCorrelationIncrease (0-1): <input id="strength" type="number" value="0.5"/> 
-    (Blue)
-    </span>
-    <span class="correlation hidden">
-    - minCorrelation(0-1): <input id="correlation" type="number" value="0.9"/> 
-    (Yellow)
-    </span>
-  </td>
-</tr>
-<tr>
-  <td>Pitch Detection Range:</td>
-  <td>
-    <select id="range">
-      <option value="none">everything</option>
-      <option value="Frequency">limit frequency</option>
-      <option value="Period">limit period</option>
-      <option value="Note">limit midi note number</option>
-    </select>
-    <span class="range hidden">
-      min: <input id="min" type="number"/> 
-      max: <input id="max" type="number"/>
-    </span>
-     (Green)
-  </td>
-</tr>
-<tr>
-  <td>Visualize:</td>
-  <td>
-    <select id="draw" value="onDetect">
-      <option value="onDetect">only when a pitch is detected</option>
-    </select>
-  </td>
-</tr>
-<tr>
-  <td>stopAfterDetection</td>
-  <td>
-    <label for="stopAfterDetection">
-      <input id="stopAfterDetection" type="checkbox"> 
-      stops after first pitch is detected
-    </label>
-  </td>
-</tr>
-<tr>
-  <td></td>
-  <td>
-    <hr/>
-    <button onclick="start()" id="start">Update PitchDetector</button>
-    <button onclick="stop()" id="stop">Stop</button>
-  </td>
-</tr>
-</table>
+  <div>
+      <paper-button raised onclick="start()" id="start">Start Tuner</paper-button>
+      <paper-button raised onclick="stop()" id="stop">Stop</paper-button>
+  </div>
 
+  <div class="pitch">
+    <span id="pitch">--</span>Hz
+  </div>
+
+  <div class="note">
+    <span id="note">--</span>
+  </div>   
+  <div id="detune">
+    <span id="detune_amt">--</span><span id="flat" display='inline'> &#9837;</span><span id="sharp"> &#9839;</span>
+  </div>
 </div>
-<br/>
-
-<div id="detector" class="vague">
-<div class="pitch"><span id="pitch">--</span>Hz</div>
-<div class="note"><span id="note">--</span></div>   
-<div id="detune"><span id="detune_amt">--</span><span id="flat"> cents &#9837;</span><span id="sharp"> cents &#9839;</span></div>
-</div>
-
-<div class="box">
-<canvas id="waveform" width="512" height="256"></canvas>
-<pre id="settings"></pre>
-</div>
-
+<p></p>
 </template>
 
 <script>
@@ -252,3 +145,43 @@ if (navigator.getUserMedia) {
 drawCanvas();
 </script>
 </dom-module>
+<style is="custom-style">
+  paper-button.custom {
+    --paper-button-ink-color: var(--paper-pink-a200);
+    /* These could also be individually defined for each of the
+      specific css classes, but we'll just do it once as an example */
+    --paper-button-flat-keyboard-focus: {
+      background-color: var(--paper-pink-a200);
+      color: white !important;
+    };
+    --paper-button-raised-keyboard-focus: {
+      background-color: var(--paper-pink-a200) !important;
+      color: white !important;
+    };
+  }
+  paper-button.custom:hover {
+    background-color: var(--paper-indigo-100);
+  }
+  paper-button.pink {
+    color: var(--paper-pink-a200);
+
+  }
+  paper-button.indigo {
+    background-color: var(--paper-indigo-500);
+    color: white;
+    --paper-button-raised-keyboard-focus: {
+      background-color: var(--paper-pink-a200) !important;
+      color: white !important;
+    };
+  }
+  paper-button.green {
+    background-color: var(--paper-green-500);
+    color: white;
+  }
+  paper-button.green[active] {
+    background-color: var(--paper-red-500);
+  }
+  paper-button.disabled {
+    color: white;
+  }
+</style>
