@@ -23,22 +23,19 @@ $(function() {
     detune: $('#detune_amt')
   };
 
-  window.stop = function stop(button) {
+  window.stop = function stop() {
     if (pitchDetector) { 
       pitchDetector.destroy(); 
     }
-    button.disabled = true;
-    button.previousElementSibling.disabled = false;
     pitchDetector = null;
   };
 
-  window.start = function start(button) {
+  window.start = function start() {
     if (needsReset && pitchDetector) {
       pitchDetector.destroy();
       pitchDetector = null;
     }
-    button.disabled = true;
-    button.nextElementSibling.disabled = false;
+
     var sourceNode;
     options.input = sourceNode;
     options.output = audioContext.destination;
