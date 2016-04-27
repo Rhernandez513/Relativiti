@@ -12,8 +12,8 @@ Using recorder.js module to record audio input from user and send to parsing
         #recordingslist audio { display: block; margin-bottom: 10px; }
     </style>
     <p>
-    <input onclick='startRecording(this)' type='button' value='Start Recording'/>
-    <input onclick='stopRecording(this)' type='button' disabled value='Stop Recording'/>
+    <paper-button raised onclick='startRecording(this)'>Start Recording</paper-button>
+    <paper-button raised disabled onclick='stopRecording(this)'>Stop Recording</paper-button>
     </p>
     <h2>Recordings</h2>
      <ul id='recordingslist'></ul>

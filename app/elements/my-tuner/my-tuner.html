@@ -4,8 +4,8 @@ Tuning application using AnalyzerNode and Web Audio API to stream and visualize
 
 <dom-module id='my-tuner'>
 <template>
-<script src="../../scripts/gui.js"></script>
-<script src="../../scripts/pitchdetector.js"></script>
+<script src='../../scripts/gui.js'></script>
+<script src='../../scripts/pitchdetector.js'></script>
 <style>
 body { font-family: serif;}
 #note { font-size: 160px; }
@@ -43,19 +43,19 @@ code { color: blue; padding: 2px;}
 
 <div>
   <div>
-      <paper-button raised onclick="start()" id="start">Start Tuner</paper-button>
-      <paper-button raised onclick="stop()" id="stop">Stop</paper-button>
+      <paper-button raised onclick='start(this)' id='start'>Start Tuner</paper-button>
+      <paper-button raised disabled onclick='stop(this)' id='stop'>Stop</paper-button>
   </div>
 
-  <div class="pitch">
-    <span id="pitch">--</span>Hz
+  <div class='pitch'>
+    <span id='pitch'>--</span>Hz
   </div>
 
-  <div class="note">
-    <span id="note">--</span>
+  <div class='note'>
+    <span id='note'>--</span>
   </div>   
-  <div id="detune">
-    <span id="detune_amt">--</span><span id="flat" display='inline'> &#9837;</span><span id="sharp"> &#9839;</span>
+  <div id='detune'>
+    <span id='detune_amt'>--</span><span id='flat' display='inline'> &#9837;</span><span id='sharp'> &#9839;</span>
   </div>
 </div>
 <p></p>
@@ -144,7 +144,7 @@ if (navigator.getUserMedia) {
 drawCanvas();
 </script>
 </dom-module>
-<style is="custom-style">
+<style is='custom-style'>
   paper-button.custom {
     --paper-button-ink-color: var(--paper-pink-a200);
     /* These could also be individually defined for each of the
