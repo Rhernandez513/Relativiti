@@ -1,19 +1,22 @@
 <!--
-Using recorder.js module to record audio input from user and send to parsing
+Using recorder.js module to record audio input from user
+One thing to look into would be limiting the length of recording
+but that may just be setting the buffer size.
 -->
 
 <!-- Load in recorder.js -->
 <script src='../../../node_modules/recorderjs/recorder.js'></script>
 
 <dom-module id='my-recorder'>
-<template>
+<template onload='initializeCanvas()'>
     <style type='text/css'>
         ul { list-style: none; }
         #recordingslist audio { display: block; margin-bottom: 10px; }
     </style>
+    <p><canvas id='myCanvas' width='550' height='400'></canvas></p>
     <p>
-    <paper-button raised onclick='startRecording(this)'>Start Recording</paper-button>
-    <paper-button raised disabled onclick='stopRecording(this)'>Stop Recording</paper-button>
+    <input onclick='startRecording(this)' type='button' value='start recording'/>
+    <input onclick='stopRecording(this)' type='button' disabled value='stop recording and save'/>
     </p>
     <h2>Recordings</h2>
      <ul id='recordingslist'></ul>
@@ -23,18 +26,50 @@ Using recorder.js module to record audio input from user and send to parsing
 Polymer({
   is: 'my-recorder'
 });
-
 var rec;
 var recordingslist;
-
+var myCanvas;
+var canvasCtx;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
-
 // mozGetUserMedia deprecated but automatically switches
 navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
  navigator.mozGetUserMedia || navigator.msGetUserMedia;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
+var mySampleRate = audioCtx.sampleRate;
+var mySampleRate2 = mySampleRate / 5000;
+var analyser = audioCtx.createAnalyser();
+analyser.fftSize = 2048;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+analyser.getByteTimeDomainData(dataArray);
+analyser.getByteFrequencyData(dataArray);
+function initializeCanvas() {
+  myCanvas = document.getElementById('myCanvas');
+  canvasCtx = myCanvas.getContext('2d');
+  var drawVisual = requestAnimationFrame(initializeCanvas);
+  analyser.getByteTimeDomainData(dataArray);
+  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+  canvasCtx.fillRect(0, 0, myCanvas.width, myCanvas.height);
+  canvasCtx.lineWidth = 2;
+  canvasCtx.strokeStyle = 'rgb(0, 255, 255)';
+  canvasCtx.beginPath();
+  var sliceWidth = myCanvas.width * 1.0 / bufferLength;
+  var x = 0;
+  for (var i = 0; i < bufferLength; i++) {
+    var v = dataArray[i] / 128.0;
+    var y = v * myCanvas.height / 2;
+    if (i === 0) {
+      canvasCtx.moveTo(x, y);
+    } else {
+      canvasCtx.lineTo(x, y);
+    }
+    x += sliceWidth;
+  }
+  canvasCtx.lineTo(myCanvas.width, myCanvas.height / 2);
+  canvasCtx.stroke();
+}
     
 // If user denies access to microphone
 var onFail = function(e) {
@@ -44,7 +79,10 @@ var onFail = function(e) {
 // If user allows access to microphone
 var onSuccess = function(s) {
   console.log('onSuccess');
+  console.log(mySampleRate);
+  console.log(mySampleRate2);
   var mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource.connect(analyser);
   rec = new window.Recorder(mediaStreamSource);
   // Recording Begins
   rec.record();  
