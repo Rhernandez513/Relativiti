@@ -43,8 +43,9 @@ code { color: blue; padding: 2px;}
 
 <div>
   <div>
-      <paper-button raised onclick='start(this)' id='start'>Start Tuner</paper-button>
-      <paper-button raised disabled onclick='stop(this)' id='stop'>Stop</paper-button>
+      <paper-button raised onclick='start(this)' id='start'><iron-icon icon='av:hearing'></iron-icon>Start Tuner</paper-button>
+      <paper-button raised disabled onclick='stop(this)' id='stop'>
+      <iron-icon icon='av:pause-circle-filled'></iron-icon>Stop</paper-button>
   </div>
 
   <div class='pitch'>

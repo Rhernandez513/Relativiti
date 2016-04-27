@@ -3,7 +3,7 @@ Using recorder.js module to record audio input from user and send to parsing
 -->
 
 <!-- Load in recorder.js -->
-<script src='../../../node_modules/recorderjs/recorder.js'></script>
+<script src='../../node_modules/recorderjs/recorder.js'></script>
 
 <dom-module id='my-recorder'>
 <template>
@@ -12,8 +12,8 @@ Using recorder.js module to record audio input from user and send to parsing
         #recordingslist audio { display: block; margin-bottom: 10px; }
     </style>
     <p>
-    <paper-button raised onclick='startRecording(this)'>Start Recording</paper-button>
-    <paper-button raised disabled onclick='stopRecording(this)'>Stop Recording</paper-button>
+    <paper-button raised onclick='startRecording(this)'><iron-icon icon='av:fiber-manual-record'></iron-icon>Start Recording</paper-button>
+    <paper-button raised disabled onclick='stopRecording(this)'><iron-icon icon='av:stop'></iron-icon>Stop Recording</paper-button>
     </p>
     <h2>Recordings</h2>
      <ul id='recordingslist'></ul>
