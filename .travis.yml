@@ -8,6 +8,7 @@ sudo: true
 branches:
   only:
   - master
+  - development
 addons:
   firefox: latest
   apt:
