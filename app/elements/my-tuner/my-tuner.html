@@ -1,11 +1,14 @@
 <!--
-Tuning application using AnalyzerNode and Web Audio API to stream and visualize
+Tuning application using AnalyzerNode and PitchDetect
 -->
 
 <dom-module id='my-tuner'>
 <template>
-<script src="../../scripts/gui.js"></script>
-<script src="../../scripts/pitchdetector.js"></script>
+
+<!-- Load in PitchDetect -->
+<script src='../../scripts/gui.js'></script>
+<script src='../../scripts/pitchdetector.js'></script>
+
 <style>
 body { font-family: serif;}
 #note { font-size: 160px; }
@@ -43,27 +46,34 @@ code { color: blue; padding: 2px;}
 
 <div>
   <div>
-      <paper-button raised onclick="start()" id="start">Start Tuner</paper-button>
-      <paper-button raised onclick="stop()" id="stop">Stop</paper-button>
+      <paper-button raised onclick='start(this)' id='start'>
+      <iron-icon icon='av:hearing'></iron-icon>
+      Start Tuner</paper-button>
+
+      <paper-button raised disabled onclick='stop(this)' id='stop'>
+      <iron-icon icon='av:pause-circle-filled'></iron-icon>
+      Stop</paper-button>
   </div>
 
-  <div class="pitch">
-    <span id="pitch">--</span>Hz
+  <div class='pitch'>
+    <span id='pitch'>--</span>Hz
   </div>
 
-  <div class="note">
-    <span id="note">--</span>
+  <div class='note'>
+    <span id='note'>--</span>
   </div>   
-  <div id="detune">
-    <span id="detune_amt">--</span><span id="flat" display='inline'> &#9837;</span><span id="sharp"> &#9839;</span>
+  <div id='detune'>
+    <span id='detune_amt'>--</span><span id='flat' display='inline'> &#9837;</span><span id='sharp'> &#9839;</span>
   </div>
 </div>
-<p></p>
 </template>
 
 <script>
+// Initialize Variables
 var tunerCanvas;
 var canvasCtx;
+
+// Initialize canvas to load on page start
 function init() {
   tunerCanvas = document.getElementById('tunerCanvas');
   canvasCtx = tunerCanvas.getContext('2d');
@@ -84,10 +94,11 @@ var mediaStreamSource;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
 
+// Setting up Web Audio API
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
-var isStreaming = false;
 
+//Setting up AnalyserNode
 var analyser = audioCtx.createAnalyser();
 analyser.fftSize = 2048;
 var bufferLength = analyser.frequencyBinCount;
@@ -95,6 +106,7 @@ var dataArray = new Uint8Array(bufferLength);
 analyser.getByteTimeDomainData(dataArray);
 analyser.getByteFrequencyData(dataArray);
 
+// Updates the oscilloscope
 function drawCanvas() {
   var drawVisual = requestAnimationFrame(drawCanvas);
   analyser.getByteTimeDomainData(dataArray);
@@ -126,7 +138,6 @@ var onFail = function(e) {
     
 // If user allows access to microphone
 var onSuccess = function(s) {
-  isStreaming = true;
   console.log('Streaming!');
   mediaStreamSource = audioCtx.createMediaStreamSource(s);
   mediaStreamSource.connect(analyser);
@@ -134,6 +145,7 @@ var onSuccess = function(s) {
   //mediaStreamSource.connect(audioCtx.destination);
 };
 
+// Starts stream of audio when page loads
 navigator.getUserMedia  = navigator.getUserMedia || 
 navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 if (navigator.getUserMedia) {
@@ -141,46 +153,9 @@ if (navigator.getUserMedia) {
 } else {
   console.log('navigator.getUserMedia not present');
 }
+
+// Draw it!
 drawCanvas();
+
 </script>
 </dom-module>
-<style is="custom-style">
-  paper-button.custom {
-    --paper-button-ink-color: var(--paper-pink-a200);
-    /* These could also be individually defined for each of the
-      specific css classes, but we'll just do it once as an example */
-    --paper-button-flat-keyboard-focus: {
-      background-color: var(--paper-pink-a200);
-      color: white !important;
-    };
-    --paper-button-raised-keyboard-focus: {
-      background-color: var(--paper-pink-a200) !important;
-      color: white !important;
-    };
-  }
-  paper-button.custom:hover {
-    background-color: var(--paper-indigo-100);
-  }
-  paper-button.pink {
-    color: var(--paper-pink-a200);
-
-  }
-  paper-button.indigo {
-    background-color: var(--paper-indigo-500);
-    color: white;
-    --paper-button-raised-keyboard-focus: {
-      background-color: var(--paper-pink-a200) !important;
-      color: white !important;
-    };
-  }
-  paper-button.green {
-    background-color: var(--paper-green-500);
-    color: white;
-  }
-  paper-button.green[active] {
-    background-color: var(--paper-red-500);
-  }
-  paper-button.disabled {
-    color: white;
-  }
-</style>

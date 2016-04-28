@@ -23,19 +23,22 @@ $(function() {
     detune: $('#detune_amt')
   };
 
-  window.stop = function stop() {
+  window.stop = function stop(button) {
     if (pitchDetector) { 
       pitchDetector.destroy(); 
     }
+    button.disabled = true;
+    button.previousElementSibling.disabled = false;
     pitchDetector = null;
   };
 
-  window.start = function start() {
+  window.start = function start(button) {
     if (needsReset && pitchDetector) {
       pitchDetector.destroy();
       pitchDetector = null;
     }
-
+    button.disabled = true;
+    button.nextElementSibling.disabled = false;
     var sourceNode;
     options.input = sourceNode;
     options.output = audioContext.destination;
@@ -86,7 +89,7 @@ $(function() {
         } else {
           gui.detuneBox.attr('class', 'sharp');
         }
-        gui.detune.text(Math.abs(detune));
+        gui.detune.text(detune);
       }
     }
   }
