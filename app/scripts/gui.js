@@ -89,7 +89,7 @@ $(function() {
         } else {
           gui.detuneBox.attr('class', 'sharp');
         }
-        gui.detune.text(Math.abs(detune));
+        gui.detune.text(detune);
       }
     }
   }
