@@ -52,15 +52,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
-  <link rel="import" href="bower_components/paper-button/paper-button.html">
-  <link rel="import" href="bower_components/iron-icons/av-icons.html">
   <!-- endreplace-->
 
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <!-- Load in paper-buttons and av-icons -->
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/iron-icons/av-icons.html">
 
+  <!-- Load Jquery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 </head>
 
@@ -177,7 +179,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <section data-route="tuning">
               <paper-material elevation="1" id='background'>
                 <my-tuner></my-tuner>
-                <p><canvas id='tunerCanvas' width="500" height="225"                style='border: 1px solid rgb(170, 170, 170);left: 10px;top: 10px;width: 60%; float: right -moz-user-select: none;'></canvas>
+                <p><canvas id='tunerCanvas' width="500" height="225" 
+                style='border: 1px solid rgb(170, 170, 170);left: 10px;top: 10px;width: 60%; float: right -moz-user-select: none;'></canvas>
                 </p>
               </paper-material>
             </section>
