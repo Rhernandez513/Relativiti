@@ -5,7 +5,7 @@
 #
 
 echo "Building Relativiti"
-. "~/.nvm/nvm.sh"
+. ~/.nvm/nvm.sh
 nvm use stable
 # Update npm
 npm update @npm -g latest
