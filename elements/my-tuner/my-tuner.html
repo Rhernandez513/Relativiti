@@ -1,0 +1,187 @@
+<!--
+Tuning application using AnalyzerNode and Web Audio API to stream and visualize
+-->
+
+<dom-module id='my-tuner'>
+<template>
+<script src="../../scripts/gui.js"></script>
+<script src="../../scripts/pitchdetector.js"></script>
+<script src="../../scripts/pitchdetectorcanvas.js"></script>
+<style>
+body { font-family: serif;}
+#note { font-size: 160px; }
+#pitch { font-size: 80px; }
+#detune { font-size: 60px }
+#detune_amt {font-size: 60px}
+.droptarget { background-color: #348781}
+div.confident { color: black; }
+div.vague { color: lightgrey; }
+#note { display: inline-block; height:180px; text-align: left;}
+
+#detector { width: 300px; height: 246px; border: 4px solid gray; border-radius: 8px; text-align: center; padding-top: 10px; display: inline-block; float: left;}
+#waveform {border: 4px solid gray; border-radius: 8px; display: inline-block; width: 535px; height: 256px;  margin-left: 10px; float: left;}
+#flat { display: none; }
+#sharp { display: none; }
+.box {
+  float: left;
+  width: 535px;
+}
+.hidden {
+  display: none;
+}
+.invisible {
+  visibility: hidden;
+}
+.box p {
+  margin-left: 10px;
+}
+.flat #flat { font-size: 60px}
+.sharp #sharp { font-size: 60px}
+
+p {clear: both; padding-top: 15px;}
+code { color: blue; padding: 2px;}
+</style>
+
+<div>
+  <div>
+      <paper-button raised onclick="start()" id="start">Start Tuner</paper-button>
+      <paper-button raised onclick="stop()" id="stop">Stop</paper-button>
+  </div>
+
+  <div class="pitch">
+    <span id="pitch">--</span>Hz
+  </div>
+
+  <div class="note">
+    <span id="note">--</span>
+  </div>   
+  <div id="detune">
+    <span id="detune_amt">--</span><span id="flat" display='inline'> &#9837;</span><span id="sharp"> &#9839;</span>
+  </div>
+</div>
+<p></p>
+</template>
+
+<script>
+var tunerCanvas;
+var canvasCtx;
+function init() {
+  tunerCanvas = document.getElementById('tunerCanvas');
+  canvasCtx = tunerCanvas.getContext('2d');
+  console.log('canvas initialized');
+}
+
+Polymer({
+  is: 'my-tuner',
+  ready: function() {
+    console.log(document.getElementsByTagName('tunerCanvas'));
+    window.onload = function() {
+      init();
+    };
+  }
+});
+
+var mediaStreamSource;
+var audio = document.querySelector('audio');
+window.URL = window.URL || window.webkitURL;
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioCtx = new AudioContext();
+var isStreaming = false;
+
+var analyser = audioCtx.createAnalyser();
+analyser.fftSize = 2048;
+var bufferLength = analyser.frequencyBinCount;
+var dataArray = new Uint8Array(bufferLength);
+analyser.getByteTimeDomainData(dataArray);
+analyser.getByteFrequencyData(dataArray);
+
+function drawCanvas() {
+  var drawVisual = requestAnimationFrame(drawCanvas);
+  analyser.getByteTimeDomainData(dataArray);
+  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+  canvasCtx.fillRect(0, 0, tunerCanvas.width, tunerCanvas.height);
+  canvasCtx.lineWidth = 2;
+  canvasCtx.strokeStyle = 'rgb(0, 255, 255)';
+  canvasCtx.beginPath();
+  var sliceWidth = tunerCanvas.width * 1.0 / bufferLength;
+  var x = 0;
+  for (var i = 0; i < bufferLength; i++) {
+    var v = dataArray[i] / 128.0;
+    var y = v * tunerCanvas.height / 2;
+    if (i === 0) {
+      canvasCtx.moveTo(x, y);
+    } else {
+      canvasCtx.lineTo(x, y);
+    }
+    x += sliceWidth;
+  }
+  canvasCtx.lineTo(tunerCanvas.width, tunerCanvas.height / 2);
+  canvasCtx.stroke();
+}
+
+// If user denies access to microphone
+var onFail = function(e) {
+  console.log('Access Denied!', e);
+};
+    
+// If user allows access to microphone
+var onSuccess = function(s) {
+  isStreaming = true;
+  console.log('Streaming!');
+  mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource.connect(analyser);
+  // Comment/Uncomment to allow real-time playback for users
+  //mediaStreamSource.connect(audioCtx.destination);
+};
+
+navigator.getUserMedia  = navigator.getUserMedia || 
+navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+if (navigator.getUserMedia) {
+  navigator.getUserMedia({audio: true}, onSuccess, onFail);
+} else {
+  console.log('navigator.getUserMedia not present');
+}
+drawCanvas();
+</script>
+</dom-module>
+<style is="custom-style">
+  paper-button.custom {
+    --paper-button-ink-color: var(--paper-pink-a200);
+    /* These could also be individually defined for each of the
+      specific css classes, but we'll just do it once as an example */
+    --paper-button-flat-keyboard-focus: {
+      background-color: var(--paper-pink-a200);
+      color: white !important;
+    };
+    --paper-button-raised-keyboard-focus: {
+      background-color: var(--paper-pink-a200) !important;
+      color: white !important;
+    };
+  }
+  paper-button.custom:hover {
+    background-color: var(--paper-indigo-100);
+  }
+  paper-button.pink {
+    color: var(--paper-pink-a200);
+
+  }
+  paper-button.indigo {
+    background-color: var(--paper-indigo-500);
+    color: white;
+    --paper-button-raised-keyboard-focus: {
+      background-color: var(--paper-pink-a200) !important;
+      color: white !important;
+    };
+  }
+  paper-button.green {
+    background-color: var(--paper-green-500);
+    color: white;
+  }
+  paper-button.green[active] {
+    background-color: var(--paper-red-500);
+  }
+  paper-button.disabled {
+    color: white;
+  }
+</style>
