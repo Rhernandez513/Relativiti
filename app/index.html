@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Polymer Starter Kit" />
-  <title>Relativiti</title>
+  <title style="font-size: 150px; font-weight: bold;">Relativiti</title>
   <!-- Place favicon.ico in the `app/` directory -->
 
   <!-- Chrome for Android theme color -->
@@ -52,14 +52,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
-  <link rel="import" href="/bower_components/paper-button/paper-button.html">
   <!-- endreplace-->
 
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+  <!-- Load in paper-buttons and av-icons -->
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/iron-icons/av-icons.html">
 
 </head>
 
@@ -162,8 +162,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="record">
               <paper-material elevation="1">
-                <h2 class="page-title">Record</h2>
-                <p>This is the recording section</p>
                 <my-recorder></my-recorder>
               </paper-material>
             </section>
@@ -177,10 +175,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="tuning">
               <paper-material elevation="1" id='background'>
-                <h2 class="page-title">Tuning</h2>
                 <my-tuner></my-tuner>
-                <p><canvas id='tunerCanvas'
-                style='border: 1px solid rgb(170, 170, 170);left: 10px;top: 10px;width: 50%; -moz-user-select: none;'></canvas></p>
+                <p><canvas id='tunerCanvas' width="500" height="225" 
               </paper-material>
             </section>
 
@@ -213,6 +209,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
+
+  <!-- Load Jquery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <!-- endbuild-->
 </body>
 

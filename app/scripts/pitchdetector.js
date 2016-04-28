@@ -31,7 +31,7 @@ function getLiveInput(context, callback) {
         'mandatory': {
           'googEchoCancellation': 'false',
           'googAutoGainControl': 'false',
-          'googNoiseSuppression': 'false',
+          'googNoiseSuppression': 'true',
           'googHighpassFilter': 'false'
         },
         'optional': []
