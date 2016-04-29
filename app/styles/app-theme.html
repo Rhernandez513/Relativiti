@@ -50,6 +50,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     --paper-button-raised-keyboard-focus: {
       background-color: var(--light-primary-color) !important;
       color: --accent-color !important;
+
+    /* paper input */
+      --paper-input-container-color: var(--divider-color);
     };
   }
 
@@ -97,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     min-height: 48px;
     padding: 0 16px;
   }
-
+  
   paper-toolbar.tall .app-name {
     font-size: 40px;
     font-weight: 300;
@@ -137,9 +140,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     width: 50%; 
     -moz-user-select: none;
   }
+
   ul { 
     list-style: none; 
   }
+
   #recordingslist audio { 
     display: block; 
     margin-bottom: 10px; 

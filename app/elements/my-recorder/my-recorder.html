@@ -7,6 +7,14 @@ Using recorder.js module to record audio input from user and send to parsing
 
 <dom-module id='my-recorder'>
 <template>
+<p>
+  <paper-input id='compositionName' always-float-label required placeholder='Try it!' label='Enter CompositionName Name Here' maxlength='30' style='max-width:50%;'>
+  <iron-icon prefix icon='icons:save' onclick='saveName(this)'></iron-icon>
+  </paper-input>
+  
+</p>
+  <my-playback></my-playback>
+
   <p> <!-- Buttons -->
     <paper-button raised onclick='startRecording(this)'>
     <iron-icon icon='av:fiber-manual-record'></iron-icon>
@@ -19,7 +27,6 @@ Using recorder.js module to record audio input from user and send to parsing
   <h2>Recordings</h2>
   <ul id='recordingslist'></ul>
 
-  <my-playback></my-playback>
 </template>
 
 <script>
@@ -29,6 +36,7 @@ Polymer({
 
 // Initializing variables
 var rec;
+var name;
 var recordingslist;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
@@ -38,6 +46,11 @@ navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia
  navigator.mozGetUserMedia || navigator.msGetUserMedia;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
+
+function saveName() {
+  name = document.getElementById('compositionName').value;
+  console.log(name + 'saved as composition name');
+}
     
 // If user denies access to microphone
 var onFail = function(e) {
