@@ -26,20 +26,23 @@
   <paper-button raised onclick='playNote(this)'>Play Note</paper-button>
   <paper-button raised disabled onclick='stopNote(this)'>Stop Note</paper-button> 
 </p>
+
 </template>
 <script>
   Polymer({
     is: 'my-playback'
   });
 
+// Initialize variables
 var osc;
 var key;
-var dropdown;
+var dropdownItem;
 var frequency;
 var isPlaying;
 var audioContext;
-var tonality;
+var tonality = 'Major'; //default tonality
 
+// Creating Web Audio API node and context
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
 
@@ -49,6 +52,7 @@ navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia
 var audioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
 
+// Assigns tonality to major
 function major(button) {
   button.disabled = true;
   button.nextElementSibling.disabled = false;
@@ -56,6 +60,7 @@ function major(button) {
   console.log('Tonality is now ' + tonality);
 }
 
+// Assigns tonality to minor
 function minor(button) {
   button.disabled = true;
   button.previousElementSibling.disabled = false;
@@ -63,6 +68,7 @@ function minor(button) {
   console.log('Tonality is now ' + tonality);
 }
 
+ //Stops playback of key note
 function stopNote(button) {
   if (osc && isPlaying) {
     osc.stop();
@@ -75,6 +81,7 @@ function stopNote(button) {
   button.previousElementSibling.disabled = false;
 }
 
+//plays selected key
 function playNote(button) {
   if (isPlaying) {
     stopNote();
