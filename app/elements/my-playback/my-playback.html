@@ -2,7 +2,6 @@
 
 <dom-module id='my-playback'>
 <template>
-
 <paper-dropdown-menu id='keys' label='Choose Key' vertical-align='top' horizontal-align='left'>
   <paper-listbox class='dropdown-content'>
     <paper-item value='261.63'>C4</paper-item>
@@ -34,6 +33,9 @@
   });
 
 var osc;
+var key;
+var dropdown;
+var frequency;
 var isPlaying;
 var audioContext;
 var tonality;
@@ -51,19 +53,23 @@ function major(button) {
   button.disabled = true;
   button.nextElementSibling.disabled = false;
   tonality = 'Major';
+  console.log('Tonality is now ' + tonality);
 }
 
 function minor(button) {
   button.disabled = true;
   button.previousElementSibling.disabled = false;
   tonality = 'Minor';
+  console.log('Tonality is now ' + tonality);
 }
 
 function stopNote(button) {
-  if (osc) {
+  if (osc && isPlaying) {
     osc.stop();
     osc.disconnect();
     osc = null;
+    isPlaying = false;
+    console.log('Stopped playing: ' + frequency);
   }
   button.disabled = true;
   button.previousElementSibling.disabled = false;
@@ -76,9 +82,13 @@ function playNote(button) {
   button.disabled = true;
   button.nextElementSibling.disabled = false;
   isPlaying = true;
+  dropdownItem = document.getElementById('keys').selectedItem;
+  key = dropdownItem.getAttribute('text');
+  frequency = dropdownItem.getAttribute('value');
   osc = audioCtx.createOscillator();
   osc.connect(audioCtx.destination);
-  osc.frequency.value = document.getElementById('keys').value;
+  osc.frequency.value = frequency;
+  console.log('Playing: ' + frequency);
   osc.start(0);
 }
 

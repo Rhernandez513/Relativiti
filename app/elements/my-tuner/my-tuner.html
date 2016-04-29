@@ -96,10 +96,10 @@ window.URL = window.URL || window.webkitURL;
 
 // Setting up Web Audio API
 var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioCtx = new AudioContext();
+var auContext = new AudioContext();
 
 //Setting up AnalyserNode
-var analyser = audioCtx.createAnalyser();
+var analyser = auContext.createAnalyser();
 analyser.fftSize = 2048;
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
@@ -139,10 +139,10 @@ var onFail = function(e) {
 // If user allows access to microphone
 var onSuccess = function(s) {
   console.log('Streaming!');
-  mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource = auContext.createMediaStreamSource(s);
   mediaStreamSource.connect(analyser);
   // Comment/Uncomment to allow real-time playback for users
-  //mediaStreamSource.connect(audioCtx.destination);
+  //mediaStreamSource.connect(auContext.destination);
 };
 
 // Starts stream of audio when page loads
