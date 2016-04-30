@@ -1,0 +1,109 @@
+<dom-module id= 'my-metronome'>
+<template>
+<head>
+<style>
+@-webkit-keyframes pulse 
+{       
+      0% {-webkit-transform: scale(0); opacity: 0;}
+      8% {-webkit-transform: scale(0); opacity: 1;}
+      15% {-webkit-transform: scale(0.1); opacity: 1;}
+      30% {-webkit-transform: scale(0.5); opacity: 1;}
+      100% {opacity: 0; -webkit-transform: scale(1);}
+      }
+      @-moz-keyframes pulse 
+      {       
+      0% {-moz-transform: scale(0); opacity: 1;}
+      8% {-moz-transform: scale(0); opacity: 1;}
+      15% {-moz-transform: scale(0.1); opacity: 1;}
+      30% {-moz-transform: scale(0.6); opacity: 1;}
+      100% {opacity: 0; -moz-transform: scale(1);}
+      }
+
+      .pulse_holder
+      {
+      display: block;
+      position: absolute;
+      top: 12px;
+      left: 450px;
+      }
+
+      .pulse_holder .pulse_marker 
+      {
+      width: 30px;
+      height: 30px;
+      background: #099;
+      border-radius: 28px;
+      }
+
+      .pulse_holder .pulse_rays 
+      {
+      margin: 0 auto;
+      border-radius: 00px;
+      position: absolute;
+      right: -26.35px;
+      top: -26.35px;
+      z-index: 10;
+      background-color: transparent;
+      opacity: 0;
+      width: 64px;
+      height: 64px;
+      border: 8px solid rgba(0, 128, 64, 1);
+      -webkit-border-radius: 100px;
+      -moz-border-radius: 200px;
+      -o-border-radius: 100px;
+      -ms-border-radius: 100px;
+      border-radius: 100px;
+      /* Giving Animation Function */
+      -webkit-animation: pulse 2s linear infinite;
+      -moz-animation: pulse 2s linear infinite; 
+      border-image: initial;
+      }
+    </style>
+  </head>
+  </body>
+    <div>
+      <div id="tempoBox">Tempo: <span id="showTempo">120</span>BPM <input id="tempo" type="range" min="30.0" max="160.0" step="1"value="120" style="height: 20px; width: 200px" onInput="tempo = event.target.value; document.getElementById('showTempo').innerText=tempo;">
+        <button onclick="metronomeStart()">Start</button>
+        <button id='stop' onclick="metronomeStop()">Stop</button>
+        <div id="metronome" style="display:none" class=pulse_holder>
+          <div class=pulse_marker>
+            <div id="pulser" class=pulse_rays></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+<script>
+Polymer({
+    is: 'my-metronome'
+  });
+var tempo = 120.0;          // tempo (in beats per minute)
+var audio = new Audio('Tick.mp3');
+var interval = null;
+var pulser;
+
+function metronomeStart(button) {
+  if (interval) {
+    clearInterval(interval);
+  }
+  var secondsPerBeat = 60.0 / tempo;
+  var millisecondsPerBeat = secondsPerBeat * 1000;
+  console.log(tempo);
+  document.getElementById('metronome').style.display = 'block';
+  interval = setInterval(
+    function() { 
+      audio.play(); 
+    }, millisecondsPerBeat
+  );
+  var pulserStyle = document.getElementById('pulser').style;
+  pulserStyle.animation = 'pulse ' + secondsPerBeat + 's linear infinite'; //Changes speed
+  console.log(pulserStyle.animation);
+}
+
+function metronomeStop(button) {
+  clearInterval(interval);
+  document.getElementById('metronome').style.display = 'none';
+}
+</script>
+</html>
+</dom-module>

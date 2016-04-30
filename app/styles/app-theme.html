@@ -18,11 +18,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    */
   /* Application theme */
   :root {
+    /* Original colors
     --dark-primary-color: #303F9F;
     --default-primary-color: #3F51B5;
     --light-primary-color: #C5CAE9;
-    --text-primary-color: #ffffff; /*text/icons*/
+    --text-primary-color: #ffffff; /*text/icons*
     --accent-color: #FF4081;
+    */
+    --dark-primary-color: #455A64;
+    --default-primary-color: #607D8B;
+    --light-primary-color: #CFD8DC;
+    --text-primary-color: #ffffff; /*text/icons*/
+    --accent-color: #FF5252;
+
     --primary-background-color: #c5cae9;
     --primary-text-color: #212121;
     --secondary-text-color: #727272;
@@ -30,22 +38,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     --divider-color: #B6B6B6;
     /* Components */
     /* paper-drawer-panel */
-    --drawer-menu-color: #ffffff;
-    --drawer-border-color: 1px solid #ccc;
-    --drawer-toolbar-border-color: 1px solid rgba(0, 0, 0, 0.22);
+    --drawer-menu-color: var(--light-primary-color);
+    --drawer-border-color: 1px solid var(--accent-color);
+    --drawer-toolbar-border-color: 1px solid var(--dark-primary-color);
+    --paper-toolbar-background: var(--default-primary-color);
+
     /* paper-menu */
-    --paper-menu-background-color: #fff;
-    --menu-link-color: #111111;
-    --paper-button-ink-color: var(--paper-pink-a200);
+    --paper-menu-background-color: var(--light-primary-color);
+    --menu-link-color: var(--accent-color);
+    --paper-dropdown-menu-background-color: var(--light-primary-color);
+    --paper-dropdown-menu-ripple: true;
+
+    /* paper input */
+    --paper-input-container-color: var(--divider-color);
+    --paper-input-container-focus-color: var(--accent-color);
+
+    /* iron icons */ 
+    --iron-icon-fill-color: var(--accent-color);
+    
+    /* paper-button */
+    --paper-button-ink-color: var(--accent-color);
     --paper-button-raised-keyboard-focus: {
-      background-color: var(--paper-pink-a200) !important;
-      color: white !important;
+      background-color: var(--light-primary-color);
+      color: var(--accent-color);
     };
   }
   /* General styles */
   #drawerToolbar {
-    color: var(--secondary-text-color);
-    background-color: var(--drawer-menu-color);
+    color: var(--light-primary-color);
+    background-color: var(--dark-primary-color);
     border-bottom: var(--drawer-toolbar-border-color);
   }
   paper-scroll-header-panel {
@@ -93,6 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     font-size:25px; 
     font-weight:bold;
   }
+  
   #mainToolbar .middle-container  {
     height: 100%;
     margin-left: 48px;
@@ -114,6 +136,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     width: 50%; 
     -moz-user-select: none;
   }
+
+
+  ul { 
+    list-style: none; 
+  }
+
+  title {
+    font-size: 150px;
+     font-weight: bold;
+  }
+
+  #recordingslist audio { 
+    display: block; 
+    margin-bottom: 10px; 
+  }
+
   /* Height of the scroll area */
   .content {
     height: 900px;

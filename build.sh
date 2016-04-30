@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 #
 # http://RobertHernandez.io/
-# Sheet-Music-App Build & Deploy
+# Relativiti Build & Deploy
 #
 
 echo "Building Relativiti"
+<<<<<<< HEAD
 # Load nvm
 . ~/.nvm/nvm.sh
 nvm install stable
+=======
+. ~/.nvm/nvm.sh
+>>>>>>> edbbbf98537edd77657794b1152924e3a76b276a
 nvm use stable
 # Update npm
 npm update @npm -g latest
 # "Server side" gulp & bower
-npm install -g gulp bower
+npm install -g gulp bower cordova
 # "App Backend" backend-modules
 ## Install "Client side" modules
 npm install && \
@@ -39,13 +43,14 @@ echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
 # chown -R $(whoami):$GROUP .
 
 gulp
-gulp --cordova 'platform add android'
-gulp --cordova 'plugin add cordova-plugin-media'
-gulp --cordova 'build'
+cordova platform add android
+cordova plugin add cordova-plugin-media
+cordova build
+gulp
 
 # Deploy!
 # gulp deploy-gh-pages
-. travis-gh-pages-deploy-runner.sh
+# . travis-gh-pages-deploy-runner.sh
 
 # Cleanup
 rm ~/.git-credentials

@@ -11,7 +11,7 @@ Tuning application using AnalyzerNode and PitchDetect
 
 <style>
 body { font-family: serif;}
-#note { font-size: 160px; }
+#note { font-size: 120px; }
 #pitch { font-size: 80px; }
 #detune { font-size: 60px }
 #detune_amt {font-size: 60px}
@@ -90,9 +90,10 @@ var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
 // Setting up Web Audio API
 var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioCtx = new AudioContext();
+var auContext = new AudioContext();
+
 //Setting up AnalyserNode
-var analyser = audioCtx.createAnalyser();
+var analyser = auContext.createAnalyser();
 analyser.fftSize = 2048;
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
@@ -105,7 +106,7 @@ function drawCanvas() {
   canvasCtx.fillStyle = 'rgb(0, 0, 0)';
   canvasCtx.fillRect(0, 0, tunerCanvas.width, tunerCanvas.height);
   canvasCtx.lineWidth = 2;
-  canvasCtx.strokeStyle = 'rgb(0, 255, 255)';
+  canvasCtx.strokeStyle = 'rgb(100, 32, 32)';
   canvasCtx.beginPath();
   var sliceWidth = tunerCanvas.width * 1.0 / bufferLength;
   var x = 0;
@@ -130,10 +131,10 @@ var onFail = function(e) {
 // If user allows access to microphone
 var onSuccess = function(s) {
   console.log('Streaming!');
-  mediaStreamSource = audioCtx.createMediaStreamSource(s);
+  mediaStreamSource = auContext.createMediaStreamSource(s);
   mediaStreamSource.connect(analyser);
   // Comment/Uncomment to allow real-time playback for users
-  //mediaStreamSource.connect(audioCtx.destination);
+  //mediaStreamSource.connect(auContext.destination);
 };
 // Starts stream of audio when page loads
 navigator.getUserMedia  = navigator.getUserMedia || 

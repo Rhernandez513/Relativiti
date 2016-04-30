@@ -4,6 +4,7 @@ android:
   components:
   - platform-tools
   - tools
+  - android-23
 sudo: true
 branches:
   only:
