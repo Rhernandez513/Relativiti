@@ -47,8 +47,13 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
 
 function saveName() {
-  name = document.getElementById('compositionName').value;
-  console.log(name + 'saved as composition name');
+  if (!name == '') {
+    name = document.getElementById('compositionName').value;
+    console.log(name + ' saved as composition name');
+  } else {
+    name = 'defaultCompositionName'; //default for now
+    console.log(name + ' saved as composition name');
+  }
 }
     
 // If user denies access to microphone
