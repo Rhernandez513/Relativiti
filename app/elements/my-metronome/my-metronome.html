@@ -57,10 +57,10 @@
       -moz-animation: pulse 2s linear infinite; 
       border-image: initial;
       }
-    </style>
+</style>
   <p>
     <div>
-      <paper-input id='tempo' type = 'number' min='30' max='160' step='1' inputElement = 'tempo'></paper-input>
+      <paper-input id='tempo' type = 'number' min='30' max='160' step='1' inputElement = 'tempo' label='Enter Tempo Here' style='max-width:10%;'></paper-input>
         <paper-button raised onclick="metronomeStart()">Metronome Start</paper-button>
         <paper-button raised id='stop' onclick="metronomeStop()">Metronome Stop</paper-button>
         <div id="metronome" style="display:none" class=pulse_holder>
@@ -84,6 +84,9 @@ function metronomeStart(button) {
   if (interval) {
     clearInterval(interval);
   }
+  tempo = document.getElementById('tempo').value;
+  console.log(tempo + ' saved as tempo');
+
   var secondsPerBeat = 60.0 / tempo;
   var millisecondsPerBeat = secondsPerBeat * 1000;
   console.log(tempo);
