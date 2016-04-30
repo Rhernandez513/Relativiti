@@ -5,13 +5,7 @@
 #
 
 echo "Building Relativiti"
-<<<<<<< HEAD
-# Load nvm
 . ~/.nvm/nvm.sh
-nvm install stable
-=======
-. ~/.nvm/nvm.sh
->>>>>>> edbbbf98537edd77657794b1152924e3a76b276a
 nvm use stable
 # Update npm
 npm update @npm -g latest
@@ -56,4 +50,3 @@ gulp
 rm ~/.git-credentials
 
 # EOF
-
