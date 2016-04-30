@@ -47,11 +47,11 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
 
 function saveName() {
-  if (!name == '') {
-    name = document.getElementById('compositionName').value;
+  if (name === '') {
+    name = 'defaultCompositionName'; //default for now
     console.log(name + ' saved as composition name');
   } else {
-    name = 'defaultCompositionName'; //default for now
+    name = document.getElementById('compositionName').value;
     console.log(name + ' saved as composition name');
   }
 }

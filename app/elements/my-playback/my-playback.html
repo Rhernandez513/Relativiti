@@ -98,7 +98,7 @@ function playNote(button) {
   isPlaying = true;
   dropdownItem = document.getElementById('keys').selectedItem;
   
-  if (dropdownItem == null) {
+  if (dropdownItem === null) {
     console.log('null frequency');
     return;
   } else {
