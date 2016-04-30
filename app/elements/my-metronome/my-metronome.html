@@ -79,8 +79,8 @@
 Polymer({
     is: 'my-metronome'
   });
-var tempo;          // tempo (in beats per minute)
-var audio = new Audio('Tick.mp3');
+var tempo = 120.0;          // tempo (in beats per minute)
+var audio = new Audio('sounds/Tick.mp3');
 var interval = null;
 var pulser;
 var pulserStyle;
