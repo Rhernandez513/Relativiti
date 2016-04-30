@@ -72,14 +72,19 @@ function minor(button) {
 //Stops playback of key note
 function stopNote(button) {
   if (osc && isPlaying) {
+    button.disabled = true;
+    button.previousElementSibling.disabled = false;
     osc.stop();
     osc.disconnect();
     osc = null;
     isPlaying = false;
     console.log('Stopped playing: ' + frequency);
+  } else {
+    button.disabled = true;
+    button.previousElementSibling.disabled = false;
+    osc = null;
+    isPlaying = false;
   }
-  button.disabled = true;
-  button.previousElementSibling.disabled = false;
 }
 
 //plays selected key
@@ -87,17 +92,24 @@ function playNote(button) {
   if (isPlaying) {
     stopNote();
   }
+
   button.disabled = true;
   button.nextElementSibling.disabled = false;
   isPlaying = true;
   dropdownItem = document.getElementById('keys').selectedItem;
-  key = dropdownItem.getAttribute('text');
-  frequency = dropdownItem.getAttribute('value');
-  osc = audioCtx.createOscillator();
-  osc.connect(audioCtx.destination);
-  osc.frequency.value = frequency;
-  console.log('Playing: ' + frequency);
-  osc.start(0);
+  
+  if (dropdownItem == null) {
+    console.log('null frequency');
+    return;
+  } else {
+    key = dropdownItem.getAttribute('text');
+    frequency = dropdownItem.getAttribute('value');
+    osc = audioCtx.createOscillator();
+    osc.connect(audioCtx.destination);
+    osc.frequency.value = frequency;
+    console.log('Playing: ' + frequency);
+    osc.start(0);
+  }
 }
 
 </script>

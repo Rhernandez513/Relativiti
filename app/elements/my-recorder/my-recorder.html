@@ -11,21 +11,20 @@ Using recorder.js module to record audio input from user and send to parsing
   <paper-input id='compositionName' always-float-label required placeholder='Try it!' label='Enter Composition Name Here' maxlength='30' style='max-width:50%;'>
   <iron-icon prefix icon='icons:save' onclick='saveName(this)'></iron-icon>
   </paper-input>
-  
 </p>
-  <my-playback></my-playback>
 
-  <p> <!-- Buttons -->
-    <paper-button raised onclick='startRecording(this)'>
-    <iron-icon icon='av:fiber-manual-record'></iron-icon>
-    Start Recording</paper-button>
+<my-playback></my-playback>
 
-    <paper-button raised disabled onclick='stopRecording(this)'>
-    <iron-icon icon='av:stop'></iron-icon>
-    Stop Recording</paper-button>
-  </p>
-  <h2>Recordings</h2>
-  <ul id='recordingslist'></ul>
+<p> <!-- Buttons -->
+  <paper-button raised onclick='startRecording(this)'>
+  <iron-icon icon='av:fiber-manual-record'></iron-icon>
+  Start Recording</paper-button>
+
+  <paper-button raised disabled onclick='stopRecording(this)'>
+  <iron-icon icon='av:stop'></iron-icon>
+  Stop Recording</paper-button>
+</p>
+<ul id='recordingslist'></ul>
 
 </template>
 
