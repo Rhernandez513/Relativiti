@@ -19,7 +19,6 @@ body { font-family: serif;}
 div.confident { color: black; }
 div.vague { color: lightgrey; }
 #note { display: inline-block; height:180px; text-align: left;}
-
 #detector { width: 300px; height: 246px; border: 4px solid gray; border-radius: 8px; text-align: center; padding-top: 10px; display: inline-block; float: left;}
 #waveform {border: 4px solid gray; border-radius: 8px; display: inline-block; width: 535px; height: 256px;  margin-left: 10px; float: left;}
 #flat { display: none; }
@@ -39,7 +38,6 @@ div.vague { color: lightgrey; }
 }
 .flat #flat { font-size: 60px}
 .sharp #sharp { font-size: 60px}
-
 p {clear: both; padding-top: 15px;}
 code { color: blue; padding: 2px;}
 </style>
@@ -56,7 +54,7 @@ code { color: blue; padding: 2px;}
   </div>
 
   <div class='pitch'>
-    <span id='pitch'>--</span>Hz
+    <span id='pitch'>--</span><span style='font-size:60px'>Hz</span>
   </div>
 
   <div class='note'>
@@ -72,14 +70,12 @@ code { color: blue; padding: 2px;}
 // Initialize Variables
 var tunerCanvas;
 var canvasCtx;
-
 // Initialize canvas to load on page start
 function init() {
   tunerCanvas = document.getElementById('tunerCanvas');
   canvasCtx = tunerCanvas.getContext('2d');
   console.log('canvas initialized');
 }
-
 Polymer({
   is: 'my-tuner',
   ready: function() {
@@ -89,15 +85,12 @@ Polymer({
     };
   }
 });
-
 var mediaStreamSource;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
-
 // Setting up Web Audio API
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
-
 //Setting up AnalyserNode
 var analyser = audioCtx.createAnalyser();
 analyser.fftSize = 2048;
@@ -105,7 +98,6 @@ var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
 analyser.getByteTimeDomainData(dataArray);
 analyser.getByteFrequencyData(dataArray);
-
 // Updates the oscilloscope
 function drawCanvas() {
   var drawVisual = requestAnimationFrame(drawCanvas);
@@ -130,7 +122,6 @@ function drawCanvas() {
   canvasCtx.lineTo(tunerCanvas.width, tunerCanvas.height / 2);
   canvasCtx.stroke();
 }
-
 // If user denies access to microphone
 var onFail = function(e) {
   console.log('Access Denied!', e);
@@ -144,7 +135,6 @@ var onSuccess = function(s) {
   // Comment/Uncomment to allow real-time playback for users
   //mediaStreamSource.connect(audioCtx.destination);
 };
-
 // Starts stream of audio when page loads
 navigator.getUserMedia  = navigator.getUserMedia || 
 navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -153,9 +143,7 @@ if (navigator.getUserMedia) {
 } else {
   console.log('navigator.getUserMedia not present');
 }
-
 // Draw it!
 drawCanvas();
-
 </script>
 </dom-module>

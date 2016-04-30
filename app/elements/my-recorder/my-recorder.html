@@ -1,7 +1,5 @@
 <!--
-Using recorder.js module to record audio input from user
-One thing to look into would be limiting the length of recording
-but that may just be setting the buffer size.
+Using recorder.js module to record audio input from user and send to parsing
 -->
 
 <!-- Load in recorder.js -->
@@ -30,51 +28,16 @@ but that may just be setting the buffer size.
 Polymer({
   is: 'my-recorder'
 });
-
 // Initializing variables
 var rec;
 var recordingslist;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
-
 // Creating Audio Context using Web Audio API
 navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
  navigator.mozGetUserMedia || navigator.msGetUserMedia;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
-var mySampleRate = audioCtx.sampleRate;
-var mySampleRate2 = mySampleRate / 5000;
-var analyser = audioCtx.createAnalyser();
-analyser.fftSize = 2048;
-var bufferLength = analyser.frequencyBinCount;
-var dataArray = new Uint8Array(bufferLength);
-analyser.getByteTimeDomainData(dataArray);
-analyser.getByteFrequencyData(dataArray);
-function initializeCanvas() {
-  myCanvas = document.getElementById('myCanvas');
-  canvasCtx = myCanvas.getContext('2d');
-  var drawVisual = requestAnimationFrame(initializeCanvas);
-  analyser.getByteTimeDomainData(dataArray);
-  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-  canvasCtx.fillRect(0, 0, myCanvas.width, myCanvas.height);
-  canvasCtx.lineWidth = 2;
-  canvasCtx.strokeStyle = 'rgb(0, 255, 255)';
-  canvasCtx.beginPath();
-  var sliceWidth = myCanvas.width * 1.0 / bufferLength;
-  var x = 0;
-  for (var i = 0; i < bufferLength; i++) {
-    var v = dataArray[i] / 128.0;
-    var y = v * myCanvas.height / 2;
-    if (i === 0) {
-      canvasCtx.moveTo(x, y);
-    } else {
-      canvasCtx.lineTo(x, y);
-    }
-    x += sliceWidth;
-  }
-  canvasCtx.lineTo(myCanvas.width, myCanvas.height / 2);
-  canvasCtx.stroke();
-}
     
 // If user denies access to microphone
 var onFail = function(e) {
@@ -84,8 +47,6 @@ var onFail = function(e) {
 // If user allows access to microphone
 var onSuccess = function(s) {
   console.log('onSuccess');
-  console.log(mySampleRate);
-  console.log(mySampleRate2);
   var mediaStreamSource = audioCtx.createMediaStreamSource(s);
   // Recording Begins
   // should be 'new Recorder' but kept there to pass JSHint
@@ -106,7 +67,6 @@ function startRecording(button) {
     console.log('navigator.getUserMedia not present');
   }
 }
-
 // Stop audio stream and save recording to WAV file
 function stopRecording(button) {
   button.disabled = true;
