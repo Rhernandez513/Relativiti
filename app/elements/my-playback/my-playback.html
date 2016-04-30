@@ -2,6 +2,7 @@
 
 <dom-module id='my-playback'>
 <template>
+<p>
 <paper-dropdown-menu id='keys' label='Choose Key' vertical-align='top' horizontal-align='left'>
   <paper-listbox class='dropdown-content'>
     <paper-item value='261.63'>C4</paper-item>
@@ -26,7 +27,7 @@
   <paper-button raised onclick='playNote(this)'>Play Note</paper-button>
   <paper-button raised disabled onclick='stopNote(this)'>Stop Note</paper-button> 
 </p>
-
+</p>
 </template>
 <script>
   Polymer({
