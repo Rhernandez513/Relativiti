@@ -53,18 +53,18 @@
       -ms-border-radius: 100px;
       border-radius: 100px;
       /* Giving Animation Function */
-      -webkit-animation: pulse 2s linear infinite;
-      -moz-animation: pulse 2s linear infinite; 
+      -webkit-animation: pulse .5s linear infinite;
+      -moz-animation: pulse .5s linear infinite; 
       border-image: initial;
       }
 </style>
   <p>
     <div>
       <paper-input id='tempo' type = 'number' min='30' max='160' step='1' inputElement = 'tempo' label='Enter Tempo Here' style='max-width:10%;'></paper-input>
-        <paper-button raised onclick="metronomeStart()">
+        <paper-button raised onclick="metronomeStart(this)">
         <iron-icon icon='image:timer'></iron-icon>
         Metronome Start</paper-button>
-        <paper-button raised id='stop' onclick="metronomeStop()">
+        <paper-button raised disabled id='stop' onclick="metronomeStop(this)">
         <iron-icon icon='image:timer-off'></iron-icon>
         Metronome Stop</paper-button>
         <div id="metronome" style="display:none" class=pulse_holder>
@@ -79,35 +79,45 @@
 Polymer({
     is: 'my-metronome'
   });
-var tempo = 120.0;          // tempo (in beats per minute)
+var tempo;          // tempo (in beats per minute)
 var audio = new Audio('Tick.mp3');
 var interval = null;
 var pulser;
+var pulserStyle;
 
 function metronomeStart(button) {
   if (interval) {
     clearInterval(interval);
   }
-  tempo = document.getElementById('tempo').value;
-  console.log(tempo + ' saved as tempo');
-
+  if (tempo === null) {
+    tempo = 120.0;
+    console.log(tempo + ' saved as tempo');
+  } else {
+    tempo = document.getElementById('tempo').value;
+    console.log(tempo + ' saved as tempo');
+  }
   var secondsPerBeat = 60.0 / tempo;
   var millisecondsPerBeat = secondsPerBeat * 1000;
-  console.log(tempo);
   document.getElementById('metronome').style.display = 'block';
   interval = setInterval(
     function() { 
       audio.play(); 
     }, millisecondsPerBeat
   );
-  var pulserStyle = document.getElementById('pulser').style;
+  pulserStyle = document.getElementById('pulser').style;
   pulserStyle.animation = 'pulse ' + secondsPerBeat + 's linear infinite'; //Changes speed
   console.log(pulserStyle.animation);
+
+  button.disabled = true;
+  button.nextElementSibling.disabled = false;
 }
 
 function metronomeStop(button) {
   clearInterval(interval);
   document.getElementById('metronome').style.display = 'none';
+
+  button.disabled = true;
+  button.previousElementSibling.disabled = false;
 }
 </script>
 </dom-module>
