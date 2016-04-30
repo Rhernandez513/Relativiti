@@ -61,8 +61,12 @@
   <p>
     <div>
       <paper-input id='tempo' type = 'number' min='30' max='160' step='1' inputElement = 'tempo' label='Enter Tempo Here' style='max-width:10%;'></paper-input>
-        <paper-button raised onclick="metronomeStart()">Metronome Start</paper-button>
-        <paper-button raised id='stop' onclick="metronomeStop()">Metronome Stop</paper-button>
+        <paper-button raised onclick="metronomeStart()">
+        <iron-icon icon='image:timer'></iron-icon>
+        Metronome Start</paper-button>
+        <paper-button raised id='stop' onclick="metronomeStop()">
+        <iron-icon icon='image:timer-off'></iron-icon>
+        Metronome Stop</paper-button>
         <div id="metronome" style="display:none" class=pulse_holder>
           <div class=pulse_marker>
             <div id="pulser" class=pulse_rays></div>
