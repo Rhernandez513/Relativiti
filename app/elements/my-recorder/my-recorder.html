@@ -35,7 +35,7 @@ Polymer({
 
 // Initializing variables
 var rec;
-var name;
+var compositionName;
 var recordingslist;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
@@ -47,12 +47,12 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
 
 function saveName() {
-  if (name === '') {
-    name = 'defaultCompositionName'; //default for now
-    console.log(name + ' saved as composition name');
+  if (compositionName === '') {
+    compositionName = 'defaultCompositionName'; //default for now
+    console.log(compositionName + ' saved as composition name');
   } else {
-    name = document.getElementById('compositionName').value;
-    console.log(name + ' saved as composition name');
+    compositionName = document.getElementById('compositionName').value;
+    console.log(compositionName + ' saved as composition name');
   }
 }
     
