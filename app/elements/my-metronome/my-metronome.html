@@ -60,7 +60,7 @@
 </style>
   <p>
     <div>
-      <paper-input id='tempo' type = 'number' min='30' max='160' step='1' inputElement = 'tempo' label='Enter Tempo Here' style='max-width:10%;'></paper-input>
+      <paper-input id='tempo' type = 'number' min='30' max='160' step='10' inputElement = 'tempo' label='Enter Tempo Here' style='max-width:10%;'></paper-input>
         <paper-button raised onclick="metronomeStart(this)">
         <iron-icon icon='image:timer'></iron-icon>
         Metronome Start</paper-button>
@@ -79,7 +79,7 @@
 Polymer({
     is: 'my-metronome'
   });
-var tempo = 120.0;          // tempo (in beats per minute)
+var tempo;          // tempo (in beats per minute)
 var audio = new Audio('sounds/Tick.mp3');
 var interval = null;
 var pulser;
@@ -89,8 +89,8 @@ function metronomeStart(button) {
   if (interval) {
     clearInterval(interval);
   }
-  if (tempo === null) {
-    tempo = 120.0;
+  if (document.getElementById('tempo').value === null) {
+    tempo = 120.0; //default tempo
     console.log(tempo + ' saved as tempo');
   } else {
     tempo = document.getElementById('tempo').value;
