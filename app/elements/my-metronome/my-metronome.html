@@ -58,10 +58,9 @@
       border-image: initial;
       }
 </style>
-  <p>
-    <div>
-      <paper-input id='tempo' type = 'number' min='30' max='160' step='10' inputElement = 'tempo' label='Enter Tempo Here' style='max-width:10%;'></paper-input>
-        <paper-button raised onclick="metronomeStart(this)">
+    <div display:'inline-block'>
+      <paper-input id='tempo' type ='number' min='30' max='160' step='10' inputElement = 'tempo' label='Enter Tempo Here' style='max-width:10%;'></paper-input>
+        <paper-button raised  onclick="metronomeStart(this)">
         <iron-icon icon='image:timer'></iron-icon>
         Metronome Start</paper-button>
         <paper-button raised disabled id='stop' onclick="metronomeStop(this)">
@@ -72,8 +71,7 @@
             <div id="pulser" class=pulse_rays></div>
           </div>
         </div>
-      </div>
-  </p>
+    </div>
   </template>
 <script>
 Polymer({
