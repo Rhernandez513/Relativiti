@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Polymer Starter Kit" />
-  <title style="font-size: 150px; font-weight: bold;">Relativiti</title>
+  <title>Relativiti</title>
   <!-- Place favicon.ico in the `app/` directory -->
 
   <!-- Chrome for Android theme color -->
@@ -57,9 +57,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
 
-  <!-- Load in paper-buttons and av-icons -->
+  <!-- Load in paper and iron parts -->
   <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+  <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
   <link rel="import" href="bower_components/iron-icons/av-icons.html">
+  <link rel="import" href="bower_components/iron-icons/image-icons.html">
+  <link rel="import" href="bower_components/iron-component-page/iron-component-page.html">
 
 </head>
 
@@ -105,9 +109,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
           <span class="flex"></span>
 
-          <!-- Toolbar icons -->
+          <!-- Toolbar icons 
           <paper-icon-button icon="refresh"></paper-icon-button>
           <paper-icon-button icon="search"></paper-icon-button>
+          -->
 
           <!-- Application name -->
           <div class="middle middle-container center horizontal layout">
@@ -195,7 +200,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                  duration="6000"
                  text="Caching complete! This app will work offline.">
     </paper-toast>
-
     <platinum-sw-register auto-register
                           clients-claim
                           skip-waiting

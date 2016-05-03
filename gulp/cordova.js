@@ -17,7 +17,7 @@ var runCordova = function (command, stream) {
   stream = stream || gulp.src('');
   // needs explicit cross-platform path
   return stream = function() {
-    $.shell(['export ANDROID_HOME= ' + options.env.androidHome + ' && export PATH=' + options.env.path]);
+    $.shell(['export ANDROID_HOME=' + options.env.androidHome + ' && export PATH=' + options.env.path]);
     $.shell([path.join('node_modules/cordova/bin/cordova ') + command]);
   };
 };

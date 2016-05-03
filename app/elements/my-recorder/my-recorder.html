@@ -7,35 +7,53 @@ Using recorder.js module to record audio input from user and send to parsing
 
 <dom-module id='my-recorder'>
 <template>
-  <p> <!-- Buttons -->
-    <paper-button raised onclick='startRecording(this)'>
-    <iron-icon icon='av:fiber-manual-record'></iron-icon>
-    Start Recording</paper-button>
+<p>
+  <paper-input id='compositionName' always-float-label required placeholder='Try it!' label='Enter Composition Name Here' maxlength='30' style='max-width:40%;'>
+  <iron-icon prefix icon='icons:save' onclick='saveName(this)'></iron-icon>
+  </paper-input>
+</p>
 
-    <paper-button raised disabled onclick='stopRecording(this)'>
-    <iron-icon icon='av:stop'></iron-icon>
-    Stop Recording</paper-button>
-  </p>
-  <h2>Recordings</h2>
-  <ul id='recordingslist'></ul>
+<my-playback></my-playback>
+<my-metronome></my-metronome>
+
+<p> <!-- Buttons -->
+  <paper-button raised onclick='startRecording(this)'>
+  <iron-icon icon='av:fiber-manual-record'></iron-icon>
+  Start Recording</paper-button>
+
+  <paper-button raised disabled onclick='stopRecording(this)'>
+  <iron-icon icon='av:stop'></iron-icon>
+  Stop Recording</paper-button>
+</p>
+<ul id='recordingslist'></ul>
+
 </template>
 
 <script>
 Polymer({
   is: 'my-recorder'
 });
-
 // Initializing variables
 var rec;
+var compositionName;
 var recordingslist;
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
-
 // Creating Audio Context using Web Audio API
 navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
  navigator.mozGetUserMedia || navigator.msGetUserMedia;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
+
+function saveName() {
+  if (compositionName === '') {
+    compositionName = 'defaultCompositionName'; //default for now
+    console.log(compositionName + ' saved as composition name');
+  } else {
+    compositionName = document.getElementById('compositionName').value;
+    console.log(compositionName + ' saved as composition name');
+  }
+}
     
 // If user denies access to microphone
 var onFail = function(e) {
@@ -65,7 +83,6 @@ function startRecording(button) {
     console.log('navigator.getUserMedia not present');
   }
 }
-
 // Stop audio stream and save recording to WAV file
 function stopRecording(button) {
   button.disabled = true;
