@@ -1,5 +1,5 @@
 {
-  "name": "polymer-cordova-starter-kit",
+  "name": "Relativiti",
   "private": true,
   "dependencies": {
     "iron-elements": "PolymerElements/iron-elements#^1.0.0",
@@ -8,7 +8,8 @@
     "paper-elements": "PolymerElements/paper-elements#^1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
     "polymer": "Polymer/polymer#^1.2.0",
-    "paper-menu": "PolymerElements/paper-menu#4fecb43601"
+    "paper-menu": "PolymerElements/paper-menu#4fecb43601",
+    "recorderjs": "^0.0.0"
   },
   "devDependencies": {
     "web-component-tester": "*"

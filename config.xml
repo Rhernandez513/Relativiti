@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.roberthernandez.Sheet_Music_WebApp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
+<widget id="io.Relativiti.Sheet_Music_WebApp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Relativiti</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+      Guitar Tuner and Sheet Music WebApp
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="dev@relativiti.io" href="http://relativiti.io">
+      Relativiti Team
     </author>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
@@ -19,8 +19,11 @@
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
-    <platform name="ios">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
-    </platform>
+    <!-- <platform name="ios"> -->
+    <!--     <allow-intent href="itms:*" /> -->
+    <!--     <allow-intent href="itms-apps:*" /> -->
+    <!-- </platform> -->
+    <engine name="android" spec="~5.1.1" />
+    <engine name="browser" spec="~4.1.0" />
+    <plugin name="cordova-plugin-media" spec="~2.3.0" />
 </widget>

@@ -1,5 +1,7 @@
 {
+  "name": "Relativiti",
   "private": true,
+  "license":"MIT",
   "devDependencies": {
     "browser-sync": "^2.7.7",
     "browserify": "^5.11.1",
