@@ -5,8 +5,9 @@
 #
 
 echo "Building Relativiti"
-. ~/.nvm/nvm.sh
-nvm use stable
+# . ~/.nvm/nvm.sh
+nvm install 5.11.0
+nvm use 5.11.0
 # Update npm
 npm update @npm -g latest
 # "Server side" gulp & bower
