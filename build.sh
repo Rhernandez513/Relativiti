@@ -5,7 +5,7 @@
 #
 
 echo "Building Relativiti"
-# . ~/.nvm/nvm.sh
+. ~/.nvm/nvm.sh
 nvm install 5.11.0
 nvm use 5.11.0
 # Update npm
