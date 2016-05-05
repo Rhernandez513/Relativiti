@@ -3,38 +3,57 @@ Using recorder.js module to record audio input from user and send to parsing
 -->
 
 <!-- Load in recorder.js -->
-<script src='../../../node_modules/recorderjs/recorder.js'></script>
+<script src='../../bower_components/recorderjs/recorder.js'></script>
 
 <dom-module id='my-recorder'>
 <template>
-    <style type='text/css'>
-        ul { list-style: none; }
-        #recordingslist audio { display: block; margin-bottom: 10px; }
-    </style>
-    <p>
-    <input onclick='startRecording(this)' type='button' value='Start Recording'/>
-    <input onclick='stopRecording(this)' type='button' disabled value='Stop Recording'/>
-    </p>
-    <h2>Recordings</h2>
-     <ul id='recordingslist'></ul>
+<p>
+  <paper-input id='compositionName' always-float-label required placeholder='Try it!' label='Enter Composition Name Here' maxlength='30' style='max-width:40%;'>
+  <iron-icon prefix icon='icons:save' onclick='saveName(this)'></iron-icon>
+  </paper-input>
+</p>
+
+<my-playback></my-playback>
+<my-metronome></my-metronome>
+
+<p> <!-- Buttons -->
+  <paper-button raised onclick='startRecording(this)'>
+  <iron-icon icon='av:fiber-manual-record'></iron-icon>
+  Start Recording</paper-button>
+
+  <paper-button raised disabled onclick='stopRecording(this)'>
+  <iron-icon icon='av:stop'></iron-icon>
+  Stop Recording</paper-button>
+</p>
+<ul id='recordingslist'></ul>
+
 </template>
 
 <script>
 Polymer({
   is: 'my-recorder'
 });
-
+// Initializing variables
 var rec;
+var compositionName;
 var recordingslist;
-
 var audio = document.querySelector('audio');
 window.URL = window.URL || window.webkitURL;
-
-// mozGetUserMedia deprecated but automatically switches
+// Creating Audio Context using Web Audio API
 navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia ||
  navigator.mozGetUserMedia || navigator.msGetUserMedia;
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioCtx = new AudioContext();
+
+function saveName() {
+  if (compositionName === '') {
+    compositionName = 'defaultCompositionName'; //default for now
+    console.log(compositionName + ' saved as composition name');
+  } else {
+    compositionName = document.getElementById('compositionName').value;
+    console.log(compositionName + ' saved as composition name');
+  }
+}
     
 // If user denies access to microphone
 var onFail = function(e) {
@@ -45,14 +64,16 @@ var onFail = function(e) {
 var onSuccess = function(s) {
   console.log('onSuccess');
   var mediaStreamSource = audioCtx.createMediaStreamSource(s);
-  rec = new window.Recorder(mediaStreamSource);
   // Recording Begins
+  // should be 'new Recorder' but kept there to pass JSHint
+  rec = new window.Recorder(mediaStreamSource);
   rec.record();  
   console.log('recording started');
   // Comment/Uncomment to allow real-time playback for users
-  mediaStreamSource.connect(audioCtx.destination);
+  //mediaStreamSource.connect(audioCtx.destination);
 };
     
+// Start streaming audio and recording with recorder.js   
 function startRecording(button) {
   if (navigator.getUserMedia) {
     button.disabled = true;
@@ -62,7 +83,7 @@ function startRecording(button) {
     console.log('navigator.getUserMedia not present');
   }
 }
-    
+// Stop audio stream and save recording to WAV file
 function stopRecording(button) {
   button.disabled = true;
   button.previousElementSibling.disabled = false;
