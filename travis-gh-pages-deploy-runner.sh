@@ -28,13 +28,13 @@ nvm use 5.11.0
   # GH_EMAIL=$GH_EMAIL
 
   echo "Github deploy bot name is: $GH_DEPLOY_BOT_NAME" && \
-  git config --global user.name "$GH_DEPLOY_BOT_NAME" && \
-  git config --global user.email "$GH_EMAIL"
+  git config --global user.name "$GH_DEPLOY_BOT_NAME"
+  # git config --global user.email "$GH_EMAIL"
 
 # Attempt to use TravisCI Env Variables to set git credentials
-  touch ./.git-credentials && \
-  echo "https://$GH_USER:$GH_PASS@github.com" > ./.git-credentials && \
-  git config --global credential.helper 'cache --timeout=300'
+  # touch ./.git-credentials && \
+  # echo "https://$GH_USER:$GH_PASS@github.com" > ./.git-credentials && \
+  # git config --global credential.helper 'cache --timeout=300'
 
 # Having built back-end worker, build and deploy frontend to github
   echo "Deploying!" && \
@@ -44,7 +44,7 @@ nvm use 5.11.0
   gulp deploy-gh-pages && \
   sed -i.tmp "s/app.baseUrl = '\/Relativiti/\/\/app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp
-  rm ./.git-credentials
+  # rm ./.git-credentials
 
 # Make sure to reset env var
   # git config --global user.name "$SYS_GH_USER_NAME"
