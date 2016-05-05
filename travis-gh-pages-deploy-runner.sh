@@ -15,7 +15,7 @@ if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
 then
 
 # Store System var before editing
-  SYS_GH_USER_NAME=git config --global user.name
+  # SYS_GH_USER_NAME=git config --global user.name
 
 # Info that shows up on Github
   GH_DEPLOY_BOT_NAME=$GH_DEPLOY_BOT_NAME
@@ -40,7 +40,7 @@ then
   rm app/scripts/app.js.tmp
 
 # Make sure to reset env var
-  git config --global user.name "$SYS_GH_USER_NAME"
+  # git config --global user.name "$SYS_GH_USER_NAME"
 else
   npm run lint
   npm test
