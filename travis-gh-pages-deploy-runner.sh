@@ -17,6 +17,12 @@ then
 # Store System var before editing
   # SYS_GH_USER_NAME=git config --global user.name
 
+# Load nvm
+. ~/.nvm/nvm.sh
+# source "$NVM_DIR/nvm.sh"
+nvm install 5.11.0
+nvm use 5.11.0
+
 # Info that shows up on Github
   GH_DEPLOY_BOT_NAME=$GH_DEPLOY_BOT_NAME
   GH_EMAIL=$GH_EMAIL

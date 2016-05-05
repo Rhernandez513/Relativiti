@@ -15,8 +15,6 @@ addons:
   apt:
     sources:
     - google-chrome
-    # packages:
-    # - google-chrome-stable
 before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
@@ -24,17 +22,16 @@ before_install:
 before_script: travis-pre-build.sh
 script: build.sh
 after_success: travis-gh-pages-deploy-runner.sh
-deploy:
-  provider: heroku
-  app: stark-fjord-27495
-  strategy: git
-  on:
-    repo: Rhernandez513/Relativiti
-  api_key:
-    secure: NJfb4r0VHlhR0QaKzqifJqPkbG8ylwZTQ3jUS8d4C52IbFhVtmp5NvV3RDXA/pcNMYqKUOFt9GWj7oN3i0lN6X2YJbPGaTSS+1qwJwtXozzE0C7+B/yDi/dLBe/oKitEHKdqj2EUZPhBHBbF76tABh5KHoxZwmgURcE/tSicsBp2FXf7YQhKCQJ8mkvXSFwWHQUAKPoR0qGlcsKKBGzTiVR3egbVslyjgVKeyXZtfP0lQoZmxYZHW59nKGWRVtB8Her2zhsDLKCoelb1A4aiwuj7tTXLmw+MlTpqGP9eFRQEypQv4ckO+JsgU58sd4LAT16VFaUoZoAkW/1tydE49ctNSug8KwDLHltknPUumCEBBYTLd+iUG2xxj0g6uF87ZEigecz20uN0oUoD9Q2BNHFai4N6uVmOZR8VzjlhpmkrEPl1IhO0aboVzxL2kAbwPRUk0jq0YSQsP6fdwaouODIgYdzLShFgtR5/Crrutbbb6KaafIErWtiHugagXes0lYCHb/GPUfr8Fe7MLrxtZtKjXHW5GQqw6FwmEGgCf1009+mgRlFJUObIFZ9nwcdDwnXQjUtMN+WZediXaXyvdHF2+Il11ICbtOsjIEdGKBgM3m5SFRYL4iXcVpaEsXliboHGe2V9Ky9MGt78qVwu9ScZV5zxayZUsYN1K7+MMvI=
 env:
   global:
   - secure: SbcQ7plU7aRGQlaAG2ffMhSvEs84073YSljOQ62DZAjRxgizMhF4xM7H2mPrmac9YRM4IBrQRvBKMMZy3L6OhN8gwpm8o+w2zV+5Q1fwpY9V8bilznnhp1JUY6jrB2l7aLTOFxt/cG+5ABxiupwWz/n+I7BaByYhBiHWntIBgDc528eecRNDYI5R36KWjLO/yr+SdElvyxDlDOdJGaluPvgMItbinFGcE1hYb/Jqrkkw8zpE6CTDmvMOq1aRBWSo9afgh2zDeKc02lTYP/4N0xcn8CqzHF7k5zGWHjN9DR8Ep8Bp1ff/sM7zHGZBqgVhn5WGv305jBQY6eOxiTp5cDP0WVIOjgJeM5rBu9hBQxhZSaMKBPr2B1NYUjIwTVQkBsnR4sr095Ugjg8JCZAmEevf/Ysl4CzQyW3gT+WcEluqjxUuicQWDclH6L/kOVPBJ+Eqdo/LY3G1tpLcc6fsvj4FlVO6LPTrbMyCagwQvnjX3uIdFyuthqtWWrHKQMGx2Ow9suNUi8Hyvk7WboS1Z6jrLIcs1rvXSX8rQmlMR5vJBK3Ejg6fS1OHxn/lrtLhj4lDLB9r/Fcu2PEHT1lcvQqsTa3W+t4Fk1qaShUlBDiwMbZWZgmlf1SdG5OzK1yrPLjTTdRFdqJGgb6TANCdetgczRWynvjIhr5IDMxvfJg=
 notifications:
   slack:
     secure: FMK2P20QRUFugKlHMUTLh8g15n8lRMp18V5xZMB/zWdpqSgawXnIYuCApyMygCfeGH5TFzLr52mflNtkeAixbXBVo4CsdedZrkibU6Y3wamL4VDgYB551qSyXg0qHRYqoX7orL64GZs3g9iwE5AMBT3TufUwoCvXA1xRMeen7A2rVlj4ftl7W5anWCXzvHQnvLTf//+hoXl4U2x5pufFSi7cE5q6Cwxr4+7+e7q86rGYBI8CYSXjYUveMOhsmf53NoStCg4GcYcn147B1RSPkgX5vNYdZBfpFAlo+VR7cOXcdXaYZF0vNQH/saVdVXLZcJ2v6Z9XsxCSeXod3DafGUBTNbsuAon4pIlaYLIy/ke99Qd+wFQ46/vUfp/wx/1gMNvmYpumvVNZ89AEWJAi9xJuhQMwoYuIWp3Pph7NysDsXWrOxFSEjdKPE7A/qivb25+MqxDsmTa48ppwx4c6NEXEzdg+XQP2ydCVJZcrl+yM6nrcdM6C5VCpcJSIjtZjdor705Ed6scyrYnuWo/FdE+pVl4XZptwPZJcBzofC/4f0tJBJ/3Q3egpkt6QOe3ikKFBnifHg2gZIX2z65GL97qVxTs6sIMkzg40VgEWYtZ3+i+qOmGw0d/sMH1VyhGzvtSDnmDMA4pnpKHZB/sreT60jm+7gngaF/JLKayEeQc=#travisci-build-status
+deploy:
+  provider: heroku
+  api_key:
+    secure: R6ZXbdsqpOsq2o+P8FfGIucpZLjxakgR223IrbGVrhqF5X2NsPOHypjlOgnY7xNDQeTP4YnXBxF5/s+QYmfzB/G0qweWQTrdUcyuZ4v/XtqhByM6j+dMMI6/giTzrUe+g44zkDA/MFYeIaZTXYfWwc/0sv+RNQC/58zkkBaaLWpmr1G3lAKINks5xZA1uzRNvf596rt/LmvyrqJiPy/0G3SLoM4j3lZ+6tk9F6+8ojS08f/t8BRAJ55sduQYs+Uk8xD9PB9YDBpXHLHfbhenXkur9hjpFgIs9Ai2c/nfH8xe2K3DO7GJFvJ4U/0thSFsYZCJpWi+0oHqLX2zkGm9l8WRbwjMnerJQnARzFbsO59seRGqynEVN5RB2bwaMWeIvly7NqKB1CNMhOKTb3wnhvOIxT5jhmWl+wUTMeqXqxAr27o2+lZljhKRR2zVvkqse4Sb1YN31XbHG86lDFv6WcX6Cc8qJJ6hyhSWM7EygyoYK8QbdeHqBD9LPKexWZ4n6J3/+Q1+mUOAbTck3pQOwZwKq/Auh5XQP3M/yKaPrriYciHGJ8pMGdNGWRQxifSDWdWOmIljCR5Z3DQCNGw1QTG9pVwny4nc3S6V2lNDe195bOL6UaOv0OYHSIGiLgo4xDxi/+e+HgRY+Rv2FGRMK0r2jsho5+Pn+3oiNXcEP44=
+  app: relativiti
+  on:
+    repo: Rhernandez513/Relativiti
