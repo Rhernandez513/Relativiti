@@ -7,9 +7,9 @@
 echo "Building Relativiti"
 # Load nvm
 . ~/.nvm/nvm.sh
-nvm install stable
 # source "$NVM_DIR/nvm.sh"
-nvm use stable
+nvm install 5.11.0
+nvm use 5.11.0
 # Update npm
 npm update @npm -g latest
 # "Server side" gulp & bower
@@ -53,4 +53,3 @@ gulp
 rm ~/.git-credentials
 
 # EOF
-

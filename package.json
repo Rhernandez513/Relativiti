@@ -1,8 +1,10 @@
 {
+  "name": "Relativiti",
   "private": true,
+  "license":"MIT",
   "devDependencies": {
-    "browserify": "^5.11.1",
     "browser-sync": "^2.7.7",
+    "browserify": "^5.11.1",
     "chalk": "^1.1.0",
     "connect-history-api-fallback": "^1.1.0",
     "cordova": "5.2.0",
@@ -12,7 +14,7 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cache": "^0.4.0",
     "gulp-changed": "^1.0.0",
-    "gulp-clean-css": "^2.0.3",
+    "gulp-clean-css": "^2.0.6",
     "gulp-gh-pages": "^0.5.4",
     "gulp-html-extract": "^0.0.3",
     "gulp-if": "^2.0.0",
@@ -48,9 +50,10 @@
   "scripts": {
     "test": "gulp test:local",
     "start": "gulp serve",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "postinstall": "bower install --allow-root"
   },
   "engines": {
-    "node": ">=0.12.0"
+    "node": "5.11.0"
   }
 }
