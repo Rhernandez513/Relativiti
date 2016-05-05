@@ -27,13 +27,13 @@ nvm use 5.11.0
   # GH_DEPLOY_BOT_NAME=$GH_DEPLOY_BOT_NAME
   # GH_EMAIL=$GH_EMAIL
 
-  echo "Github deploy bot name is: $GH_DEPLOY_BOT_NAME"
-  git config --global user.name "$GH_DEPLOY_BOT_NAME"
+  echo "Github deploy bot name is: $GH_DEPLOY_BOT_NAME" && \
+  git config --global user.name "$GH_DEPLOY_BOT_NAME" && \
   git config --global user.email "$GH_EMAIL"
 
 # Attempt to use TravisCI Env Variables to set git credentials
   touch ./.git-credentials && \
-  echo "https://$GH_USER:$GH_PASS@github.com" > ./.git-credentials
+  echo "https://$GH_USER:$GH_PASS@github.com" > ./.git-credentials && \
   git config --global credential.helper 'cache --timeout=300'
 
 # Having built back-end worker, build and deploy frontend to github
