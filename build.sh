@@ -47,10 +47,6 @@ gulp
 
 # Deploy!
 # gulp deploy-gh-pages
-if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]
-then
-  . travis-gh-pages-deploy-runner.sh
-fi
 
 # Cleanup
 # rm ~/.git-credentials
