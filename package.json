@@ -37,7 +37,6 @@
     "merge-stream": "^1.0.0",
     "minimist": "^1.2.0",
     "path": "^0.11.14",
-    "recorderjs": "^1.0.1",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.0.2",
     "socket.io": "^1.4.5",

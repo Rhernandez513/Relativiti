@@ -40,7 +40,7 @@ nvm use 5.11.0
   echo "Deploying!" && \
   sed -i.tmp "s/\/\/app.baseUrl = '\/your-pathname/app.baseUrl = '\/Relativiti/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp && \
-  # bower i  && \
+  bower i  && \
   gulp deploy-gh-pages && \
   sed -i.tmp "s/app.baseUrl = '\/Relativiti/\/\/app.baseUrl = '\/your-pathname/" app/scripts/app.js && \
   rm app/scripts/app.js.tmp
