@@ -27,12 +27,12 @@ bower install --allow-root
 export ANDROID_HOME=$ANDROID_HOME
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platforms-tools
 
-GH_USER="$GH_USER"
-GH_PASS="$GH_PASSWORD"
+# GH_USER="$GH_USER"
+# GH_PASS="$GH_PASSWORD"
 
-# Git Credentials
-touch ~/.git-credentials
-echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
+# # Git Credentials
+# touch ~/.git-credentials
+# echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
 
 # Running this in dev sets owner to sudo
 # Should be a developer sanity test
@@ -50,6 +50,6 @@ gulp
 # . travis-gh-pages-deploy-runner.sh
 
 # Cleanup
-rm ~/.git-credentials
+# rm ~/.git-credentials
 
 # EOF
