@@ -50,7 +50,8 @@
   "scripts": {
     "test": "gulp test:local",
     "start": "gulp serve",
-    "lint": "gulp lint"
+    "lint": "gulp lint",
+    "postinstall": "bower install --allow-root"
   },
   "engines": {
     "node": "5.11.0"
