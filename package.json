@@ -48,9 +48,9 @@
   },
   "scripts": {
     "test": "gulp test:local",
-    "start": "gulp serve",
+    "start": "gulp serve:dist",
     "lint": "gulp lint",
-    "postinstall": "bower install --allow-root && gulp"
+    "preinstall": "bower install --allow-root && gulp"
   },
   "engines": {
     "node": "5.11.0"
