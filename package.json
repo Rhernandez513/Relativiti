@@ -54,6 +54,9 @@
     "postinstall": "bower install --allow-root"
   },
   "engines": {
-    "node": "5.11.0"
+    "node": "6.1.0"
+  },
+  "dependencies": {
+    "bower": "^1.7.9"
   }
 }

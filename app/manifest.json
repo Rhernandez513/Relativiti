@@ -1,6 +1,6 @@
 {
-  "name": Relativiti,
-  "short_name": Relativiti,
+  "name": "Relativiti",
+  "short_name": "Relativiti",
   "icons": [{
         "src": "images/touch/icon-128x128.png",
         "sizes": "128x128",
