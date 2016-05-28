@@ -1,6 +1,6 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-$(function() {
+(function(document) {
   // Global Variables
   var audioContext = new AudioContext();
   var osc = null;
@@ -93,4 +93,4 @@ $(function() {
       }
     }
   }
-});
+})();

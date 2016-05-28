@@ -120,13 +120,16 @@ gulp.task('lint', function() {
       once: true
     }))
 
-  // JSCS has not yet a extract option
+  // // JSCS has not yet a extract option
   .pipe($.if('*.html', $.htmlExtract()))
-  .pipe($.jshint())
+  // .pipe($.jshint())
   .pipe($.jscs())
   .pipe($.jscsStylish.combineWithHintResults())
-  .pipe($.jshint.reporter('jshint-stylish'))
-  .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+  // .pipe($.jshint.reporter('jshint-stylish'))
+  // .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+
+  ; // until fix jshint
+
 });
 
 // Optimize images
