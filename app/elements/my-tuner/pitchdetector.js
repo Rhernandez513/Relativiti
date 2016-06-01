@@ -1,4 +1,4 @@
-(function() {
+(function(document) {
 var noteStrings = ['C', 'C#|D♭', 'D', 'D#|E♭', 'E', 'F', 'F#|G♭', 'G', 'G#|A♭', 'A', 'A#|B♭', 'B'];
 
 function frequencyToNote(frequency) {

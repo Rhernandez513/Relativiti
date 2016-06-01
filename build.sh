@@ -7,9 +7,8 @@
 echo "Building Relativiti"
 # Load nvm
 . ~/.nvm/nvm.sh
-# source "$NVM_DIR/nvm.sh"
-nvm install 5.11.0
-nvm use 5.11.0
+nvm install 6.1.0
+nvm use 6.1.0
 # Update npm
 npm update @npm -g latest
 # "Server side" gulp & bower
@@ -24,13 +23,13 @@ bower install --allow-root
 # "Client side" build Android APKs via cordova
 ## Android SDK Location so Cordova can see it
 
-export ANDROID_HOME=$ANDROID_HOME
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platforms-tools
+export ANDROID_HOME=:"$ANDROID_HOME"
+export PATH="$PATH":"$ANDROID_HOME"/tools:"$ANDROID_HOME"/platforms-tools
 
 # GH_USER="$GH_USER"
 # GH_PASS="$GH_PASSWORD"
 
-# # Git Credentials
+# Git Credentials
 # touch ~/.git-credentials
 # echo "https://$GH_USER:$GH_PASS@github.com" > ~/.git-credentials
 

@@ -20,7 +20,6 @@
     "Platform": true,
     "page": true,
     "app": true,
-
     "$": true,
     "jQuery": true,
     "canvasEl": true,
