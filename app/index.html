@@ -47,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- endbuild-->
 
   <!-- build:js scripts/webcomponents-lite.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -166,11 +166,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="record">
+
               <paper-material elevation="1">
                 <my-recorder></my-recorder>
               </paper-material>
-            </section>
 
+              <paper-material elevation="1">
+              <my-metronome></my-metronome>
+              </paper-material>
+
+              <paper-material elevation="1">
+              <my-playback></my-playback>
+              </paper-material>
+
+              <paper-material elevation="1">
+                <my-list></my-list>
+              </paper-material>
+
+            </section>
+              
             <section data-route="saved">
               <paper-material elevation="1">
                 <h2 class="page-title">Saved</h2>

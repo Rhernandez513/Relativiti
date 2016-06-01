@@ -1,124 +1,125 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 <dom-module id= 'my-metronome'>
-<template>
-<style>
-@-webkit-keyframes pulse 
-      {       
-      0% {-webkit-transform: scale(0); opacity: 0;}
-      8% {-webkit-transform: scale(0); opacity: 1;}
-      15% {-webkit-transform: scale(0.1); opacity: 1;}
-      30% {-webkit-transform: scale(0.5); opacity: 1;}
-      100% {opacity: 0; -webkit-transform: scale(1);}
+  <template>
+    <style>
+      @-webkit-keyframes pulse {       
+        0% {-webkit-transform: scale(0); opacity: 0;}
+        8% {-webkit-transform: scale(0); opacity: 1;}
+        15% {-webkit-transform: scale(0.1); opacity: 1;}
+        30% {-webkit-transform: scale(0.5); opacity: 1;}
+        100% {opacity: 0; -webkit-transform: scale(1);}
       }
-      @-moz-keyframes pulse 
-      {       
-      0% {-moz-transform: scale(0); opacity: 1;}
-      8% {-moz-transform: scale(0); opacity: 1;}
-      15% {-moz-transform: scale(0.1); opacity: 1;}
-      30% {-moz-transform: scale(0.6); opacity: 1;}
-      100% {opacity: 0; -moz-transform: scale(1);}
+      @-moz-keyframes pulse {       
+        0% {-moz-transform: scale(0); opacity: 1;}
+        8% {-moz-transform: scale(0); opacity: 1;}
+        15% {-moz-transform: scale(0.1); opacity: 1;}
+        30% {-moz-transform: scale(0.6); opacity: 1;}
+        100% {opacity: 0; -moz-transform: scale(1);}
       }
-
-      .pulse_holder
-      {
-      display: block;
-      position: absolute;
-      top: 120px;
-      left: 875px;
+      .pulse_holder {
+        display: block;
+        position: absolute;
+        top: 120px;
+        left: 875px;
       }
-
-      .pulse_holder .pulse_marker 
-      {
-      width: 0px;
-      height: 30px;
-      background: #099;
-      border-radius: 28px;
+      .pulse_holder .pulse_marker {
+        width: 0px;
+        height: 30px;
+        background: #099;
+        border-radius: 28px;
       }
-
-      .pulse_holder .pulse_rays 
-      {
-      margin: 0 auto;
-      border-radius: 00px;
-      position: absolute;
-      right: -26.35px;
-      top: -26.35px;
-      z-index: 10;
-      background-color: #ff0000;
-      opacity: #ff0000;
-      width: 185px;
-      height: 185px;
-      border: 8px solid rgba(255, 0, 0, 1);
-      -webkit-border-radius: 100px;
-      -moz-border-radius: 200px;
-      -o-border-radius: 100px;
-      -ms-border-radius: 100px;
-      border-radius: 100px;
-      /* Giving Animation Function */
-      -webkit-animation: pulse .5s linear infinite;
-      -moz-animation: pulse .5s linear infinite; 
-      border-image: initial;
+      .pulse_holder .pulse_rays {
+        margin: 0 auto;
+        border-radius: 00px;
+        position: absolute;
+        right: -26.35px;
+        top: -146.35px;
+        z-index: 10;
+        background-color: #ff0000;
+        opacity: #ff0000;
+        width: 185px;
+        height: 185px;
+        border: 8px solid rgba(255, 0, 0, 1);
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 200px;
+        -o-border-radius: 100px;
+        -ms-border-radius: 100px;
+        border-radius: 100px;
+        /* Giving Animation Function */
+        -webkit-animation: pulse .5s linear infinite;
+        -moz-animation: pulse .5s linear infinite; 
+        border-image: initial;
       }
-</style>
-<script>
-document.getElementById('tempo').value = '120';
-</script>
+      #tempo {
+        width:16%;
+      }
+    </style>
+    <script>
+      document.getElementById('tempo').value = '120';
+    </script>
     <div display:'inline-block'>
-      <paper-input id='tempo' type ='number' min='30' max='160' step='1' inputElement = 'tempo' label='Enter Tempo Here' style='width:16%;'>120</paper-input>
-        <paper-button raised  onclick="metronomeStart(this)">
+      <paper-input id='tempo' type ='number' min='30' max='160' step='1' label='Enter Tempo'></paper-input>
+
+      <paper-button raised  onclick="metronomeStart(this)">
         <iron-icon icon='image:timer'></iron-icon>
-        Metronome Start</paper-button>
-        <paper-button raised disabled id='stop' onclick="metronomeStop(this)">
+        Metronome Start
+      </paper-button>
+
+      <paper-button raised disabled onclick="metronomeStop(this)">
         <iron-icon icon='image:timer-off'></iron-icon>
-        Metronome Stop</paper-button>
-        <div id="metronome" style="display:none" class=pulse_holder>
-          <div class=pulse_marker>
-            <div id="pulser" class=pulse_rays></div>
-          </div>
+        Metronome Stop
+      </paper-button>
+
+      <div id="metronome" style="display:none" class="pulse_holder">
+        <div class="pulse_marker">
+          <div id="pulser" class="pulse_rays"></div>
         </div>
+      </div>
     </div>
   </template>
-<script>
-Polymer({
-    is: 'my-metronome'
-  });
-var tempo = 120;          // tempo (in beats per minute)
-var audio = new Audio('sounds/Tick.mp3');
-var interval = null;
-var pulser;
-var pulserStyle;
+  <script>
+    Polymer({
+      is: 'my-metronome'
+    });
+    var tempo = 120;          // tempo (in beats per minute)
+    var audio = new Audio('sounds/Tick.mp3');
+    var interval = null;
+    var pulser;
+    var pulserStyle;
 
-function metronomeStart(button) {
-  if (interval) {
-    clearInterval(interval);
-  }
-  if (document.getElementById('tempo').value === null) {
-    tempo = 120.0; //default tempo
-    console.log(tempo + ' saved as tempo');
-  } else {
-    tempo = document.getElementById('tempo').value;
-    console.log(tempo + ' saved as tempo');
-  }
-  var secondsPerBeat = 60.0 / tempo;
-  var millisecondsPerBeat = secondsPerBeat * 1000;
-  document.getElementById('metronome').style.display = 'block';
-  interval = setInterval(
-    function() { 
-      audio.play(); 
-    }, millisecondsPerBeat
-  );
-  pulserStyle = document.getElementById('pulser').style;
-  pulserStyle.animation = 'pulse ' + secondsPerBeat + 's linear infinite'; //Changes speed
-  console.log(pulserStyle.animation);
+    function metronomeStart(button) {
+      if (interval) {
+        clearInterval(interval);
+      }
+      if (document.getElementById('tempo').value === null) {
+        tempo = 120.0; //default tempo
+        console.log(tempo + ' saved as tempo');
+      } else {
+        tempo = document.getElementById('tempo').value;
+        console.log(tempo + ' saved as tempo');
+      }
+      var secondsPerBeat = 60.0 / tempo;
+      var millisecondsPerBeat = secondsPerBeat * 1000;
+      document.getElementById('metronome').style.display = 'block';
+      interval = setInterval(
+        function() { 
+          audio.play(); 
+        }, millisecondsPerBeat
+      );
+      pulserStyle = document.getElementById('pulser').style;
+      pulserStyle.animation = 'pulse ' + secondsPerBeat + 's linear infinite'; //Changes speed
+      console.log(pulserStyle.animation);
 
-  button.disabled = true;
-  button.nextElementSibling.disabled = false;
-}
+      button.disabled = true;
+      button.nextElementSibling.disabled = false;
+    }
 
-function metronomeStop(button) {
-  clearInterval(interval);
-  document.getElementById('metronome').style.display = 'none';
+    function metronomeStop(button) {
+      clearInterval(interval);
+      document.getElementById('metronome').style.display = 'none';
 
-  button.disabled = true;
-  button.previousElementSibling.disabled = false;
-}
-</script>
+      button.disabled = true;
+      button.previousElementSibling.disabled = false;
+    }
+  </script>
 </dom-module>

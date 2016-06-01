@@ -3,71 +3,71 @@ Tuning application using AnalyzerNode and PitchDetect
 -->
 
 <dom-module id='my-tuner'>
-<template>
+  <template>
 
-<!-- Load in PitchDetect -->
-<script src='gui.js'></script>
-<script src='pitchdetector.js'></script>
+    <!-- Load in PitchDetect -->
+    <script src='gui.js'></script>
+    <script src='pitchdetector.js'></script>
 
-<style>
-body { font-family: serif;}
-#note { font-size: 120px; }
-#pitch { font-size: 80px; }
-#detune { font-size: 60px }
-#detune_amt {font-size: 60px}
-.droptarget { background-color: #348781}
-div.confident { color: black; }
-div.vague { color: lightgrey; }
-#note { display: inline-block; height:180px; text-align: left;}
-#detector { width: 300px; height: 246px; border: 4px solid gray; border-radius: 8px; text-align: center; padding-top: 10px; display: inline-block; float: left;}
-#waveform {border: 4px solid gray; border-radius: 8px; display: inline-block; width: 535px; height: 256px;  margin-left: 10px; float: left;}
-#flat { display: none; }
-#sharp { display: none; }
-.box {
-  float: left;
-  width: 535px;
-}
-.hidden {
-  display: none;
-}
-.invisible {
-  visibility: hidden;
-}
-.box p {
-  margin-left: 10px;
-}
-.flat #flat { font-size: 60px}
-.sharp #sharp { font-size: 60px}
-p {clear: both; padding-top: 15px;}
-code { color: blue; padding: 2px;}
-</style>
+    <style>
+      body { font-family: serif;}
+      #note { font-size: 120px; }
+      #pitch { font-size: 80px; }
+      #detune { font-size: 60px }
+      #detune_amt {font-size: 60px}
+      .droptarget { background-color: #348781}
+      div.confident { color: black; }
+      div.vague { color: lightgrey; }
+      #note { display: inline-block; height:180px; text-align: left;}
+      #detector { width: 300px; height: 246px; border: 4px solid gray; border-radius: 8px; text-align: center; padding-top: 10px; display: inline-block; float: left;}
+      #waveform {border: 4px solid gray; border-radius: 8px; display: inline-block; width: 535px; height: 256px;  margin-left: 10px; float: left;}
+      #flat { display: none; }
+      #sharp { display: none; }
+      .box {
+        float: left;
+        width: 535px;
+      }
+      .hidden {
+        display: none;
+      }
+      .invisible {
+        visibility: hidden;
+      }
+      .box p {
+        margin-left: 10px;
+      }
+      .flat #flat { font-size: 60px}
+      .sharp #sharp { font-size: 60px}
+      p {clear: both; padding-top: 15px;}
+      code { color: blue; padding: 2px;}
+    </style>
 
-<div>
-  <div>
-      <paper-button raised onclick='start(this)' id='start'>
-      <iron-icon icon='av:hearing'></iron-icon>
-      Start Tuner</paper-button>
+    <div>
+      <div>
+        <paper-button raised onclick='start(this)' id='start'>
+          <iron-icon icon='av:hearing'></iron-icon>
+          Start Tuner</paper-button>
 
-      <paper-button raised disabled onclick='stop(this)' id='stop'>
-      <iron-icon icon='av:pause-circle-filled'></iron-icon>
-      Stop</paper-button>
-  </div>
+        <paper-button raised disabled onclick='stop(this)' id='stop'>
+          <iron-icon icon='av:pause-circle-filled'></iron-icon>
+          Stop</paper-button>
+      </div>
 
-  <div class='pitch'>
-    <span id='pitch'>--</span><span style='font-size:60px'>Hz</span>
-  </div>
+      <div class='pitch'>
+        <span id='pitch'>--</span><span style='font-size:60px'>Hz</span>
+      </div>
 
-  <div class='note'>
-    <span id='note'>--</span>
-  </div>   
-  <div id='detune'>
-    <span id='detune_amt'>--</span><span id='flat' display='inline'> &#9837;</span><span id='sharp'> &#9839;</span>
-  </div>
-</div>
-</template>
+      <div class='note'>
+        <span id='note'>--</span>
+      </div>   
+      <div id='detune'>
+        <span id='detune_amt'>--</span><span id='flat' display='inline'> &#9837;</span><span id='sharp'> &#9839;</span>
+      </div>
+    </div>
+  </template>
 
-<script>
-// Initialize Variables
+  <script>
+    // Initialize Variables
 var tunerCanvas;
 var canvasCtx;
 // Initialize canvas to load on page start
@@ -82,7 +82,7 @@ Polymer({
     console.log(document.getElementsByTagName('tunerCanvas'));
     window.onload = function() {
       init();
-    };
+    }
   }
 });
 var mediaStreamSource;
@@ -127,7 +127,7 @@ function drawCanvas() {
 var onFail = function(e) {
   console.log('Access Denied!', e);
 };
-    
+
 // If user allows access to microphone
 var onSuccess = function(s) {
   console.log('Streaming!');

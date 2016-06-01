@@ -53,10 +53,10 @@
     "preinstall": "bower install --allow-root && gulp"
   },
   "engines": {
-    "node": "5.11.0"
+    "node": "6.1.0"
   },
   "dependencies": {
-    "bower": "^1.7.9",
-    "gulp": "^3.9.1"
+    "bower": "^1.7.9"
   }
 }
+

@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>my-metronome</title>
+
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../../bower_components/web-component-tester/browser.js"></script>
+
+  <!-- Import the element to test -->
+  <link rel="import" href="../elements/my-metronome/my-metronome.html">
+
+</head>
+<body>
+
+  <test-fixture id="basic">
+    <template>
+      <my-metronome></my-metronome>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite("my-metronome tests", function() {
+      var metronome, buttonContent;
+
+      setup(function() {
+        metronome = fixture("basic");
+      });
+
+      test("Metronome Start", function() {
+        buttonContent = metronome.querySelector("div > paper-button:nth-child(2)").textContent.trim();
+        assert.equal(buttonContent, "Metronome Start");
+      });
+      test("Metronome Stop", function() {
+        buttonContent = metronome.querySelector("div > paper-button:nth-child(3)").textContent.trim();
+        assert.equal(buttonContent, "Metronome Stop");
+      });
+
+    });
+  </script>
+
+</body>
+</html>
