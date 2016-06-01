@@ -1,3 +1,4 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 <dom-module id= 'my-metronome'>
   <template>
     <style>
@@ -64,7 +65,7 @@
         Metronome Start
       </paper-button>
 
-      <paper-button raised disabled id='stop' onclick="metronomeStop(this)">
+      <paper-button raised disabled onclick="metronomeStop(this)">
         <iron-icon icon='image:timer-off'></iron-icon>
         Metronome Stop
       </paper-button>

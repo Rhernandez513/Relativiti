@@ -3,7 +3,7 @@ var path = require('path');
 var ret = {
   'suites': ['app/test'],
   'webserver': {
-    'pathMappings': []
+    'pathMappings': ['www']
   }
 };
 
