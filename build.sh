@@ -42,7 +42,7 @@ gulp
 cordova platform add android
 cordova plugin add cordova-plugin-media
 cordova build
-gulp test:local
+gulp
 
 # Deploy!
 # gulp deploy-gh-pages
